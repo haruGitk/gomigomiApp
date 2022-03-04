@@ -59,7 +59,7 @@ struct ModalView: View {
                 }
                 .padding(20)
                 .textFieldStyle(.roundedBorder)
-                Button(action: {print("都道府県: \(prefecture), 市町村: \(city), 地域: \(region)" )})
+                Button(action: {getRegionalGarbageCollectionInformation()})
                     {
                     Text("設定する")
                         .font(.footnote)
@@ -71,9 +71,44 @@ struct ModalView: View {
                 }
 
             }
-                .navigationTitle("地域設定").navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("地域設定").navigationBarTitleDisplayMode(.inline)
         }
+    }
+    
+    func getRegionalGarbageCollectionInformation() {
+        @State var results = [Result]()   // 空の書籍情報配列を生成
         
+        guard let url = URL(string: "https://itunes.apple.com/search?term=swiftui&country=jp&media=ebook") else {
+            /// 文字列が有効なURLでない場合の処理
+            return
+        }
+        // リクエストの作成
+        let request = URLRequest(url: url)
+        /// URLにアクセス
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            
+            if let data = data {    // ①データ取得チェック
+ 
+                /// ②JSON→Responseオブジェクト変換
+                let decoder = JSONDecoder()
+                guard let decodedResponse = try? decoder.decode(Response.self, from: data) else {
+                    print("Json decode エラー")
+                    return
+                }
+ 
+                /// ③書籍情報をUIに適用
+                DispatchQueue.main.async {
+                    results = decodedResponse.results
+                }
+                print(decodedResponse)
+ 
+            } else {
+ 
+                /// ④データが取得できなかった場合の処理
+                print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+            }
+            
+        }.resume()
     }
 }
 
@@ -81,4 +116,17 @@ struct ModalView_Previews: PreviewProvider {
     static var previews: some View {
         ModalView(showingModal: true)
     }
+}
+
+/// APIから取得する戻り値の型
+struct Response: Codable {
+    var results: [Result]
+}
+ 
+/// 個々の書籍情報の型
+struct Result: Codable {
+    var trackId: Int                // 書籍データのID
+    var trackName: String?          // 書籍タイトル
+    var artistName: String?         // 著者名
+    var formattedPrice: String?     // 価格（テキスト形式）
 }
