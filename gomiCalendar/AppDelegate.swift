@@ -5,7 +5,6 @@
 //  Created by liuchenghui on 2022/03/04.
 //
 
-import Foundation
 import UIKit
 import Firebase
 
