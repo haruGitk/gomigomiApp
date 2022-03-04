@@ -12,7 +12,7 @@ import SwiftUI
 struct gomiCalendarApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SettingView()
         }
     }
 }
