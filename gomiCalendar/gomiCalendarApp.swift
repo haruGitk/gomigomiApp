@@ -12,7 +12,8 @@ import SwiftUI
 struct gomiCalendarApp: App {
     var body: some Scene {
         WindowGroup {
-            SettingView()
+            ContentView()
+                .environmentObject(DisplayState())
         }
     }
 }

@@ -34,6 +34,7 @@ struct SettingView_Previews: PreviewProvider {
 }
 
 struct ModalView: View {
+    @EnvironmentObject private var displayState: DisplayState
     @State var prefecture: String = ""
     @State var city: String = ""
     @State var region: String = ""
@@ -59,7 +60,7 @@ struct ModalView: View {
                 }
                 .padding(20)
                 .textFieldStyle(.roundedBorder)
-                Button(action: {getRegionalGarbageCollectionInformation()})
+                Button(action: {displayState.displayMode = display.calendar})
                     {
                     Text("設定する")
                         .font(.footnote)
@@ -69,7 +70,6 @@ struct ModalView: View {
                         .background(Color.green)
                         .clipShape(Circle())
                 }
-
             }
             .navigationTitle("地域設定").navigationBarTitleDisplayMode(.inline)
         }

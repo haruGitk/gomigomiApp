@@ -7,10 +7,19 @@
 
 import SwiftUI
 
+enum display {
+    case setting
+    case calendar
+}
+
 struct ContentView: View {
+    @EnvironmentObject private var displayState: DisplayState
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        if displayState.displayMode == display.setting {
+            SettingView()
+        } else if displayState.displayMode == display.calendar {
+            CalendarView()
+        }
     }
 }
 
@@ -18,4 +27,8 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
+}
+
+class DisplayState: ObservableObject {
+    @Published var displayMode: display = display.setting
 }
