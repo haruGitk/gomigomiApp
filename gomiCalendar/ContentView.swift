@@ -9,47 +9,29 @@ import SwiftUI
 import Firebase
 
 struct ContentView: View {
+    
+    let dbc1 = DataBaseClass()
+    
     var body: some View {
         Text("Hello, world!")
             .padding()
-        Button(action: {read_db()}){
+        Button(action: {dbc1.readDataBase(pref: "東京都", minici: "千代田区", area: "西神田", chome: "２丁目", gomi_type: "可燃ゴミ")}){
             Text("read db")
         }
-        Button(action: {write_db()}){
+        Button(action: {dbc1.testReadDatabase()}){
+            Text("test read db")
+        }
+        Button(action: {testWriteDb()}){
             Text("write db")
         }
     }
     
-    // https://note.com/dngri/n/ndd5af885162e
-    func read_db(){
-        
-        print("front read_db")
-        let db = Firestore.firestore()
-        
-        var pref = "東京都"
-        var minici = "千代田区"
-        var area = "西神田"
-        var chome = "２丁目"
-        
-        db.collection("base").document("\(pref)").collection("\(minici)").document("\(area)").collection("\(chome)").document("gomi_list").getDocument{(querysnapshot, error) in
-            if let error = error {
-                print("\(error)")
-                return
-            }
-            guard let data = querysnapshot?.data() else {return}
-            print(data)
-            
-            
-        }
-        print("back read_db")
-    }
-    
-    func write_db(){
-        print("front write_db")
+    func testWriteDb(){
+        print("front test_write_db")
         let db = Firestore.firestore()
         
         
-        print("back write_db")
+        print("back test_write_db")
     }
     
 }

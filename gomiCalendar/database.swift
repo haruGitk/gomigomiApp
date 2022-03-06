@@ -5,34 +5,22 @@
 //  Created by liuchenghui on 2022/03/05.
 //
 
-import UIKit
+import SwiftUI
 import Firebase
 
-struct Area{
-    var pref: String
-    var minicipalities: String
-    var area: String
-    var chome: String
-}
-
-struct Rubbish{
-    var day: String
-    var type: String
-}
-
-class database: UIViewController{
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+class DataBaseClass{
+    // https://note.com/dngri/n/ndd5af885162e
+    func testReadDatabase(){
+        
+        print("front test_read_db")
         let db = Firestore.firestore()
         
-        var pref = "東京都"
-        var minici = "千代田区"
-        var area = "西神田"
-        var chome = "１丁目"
+        let pref = "東京都"
+        let minici = "千代田区"
+        let area = "西神田"
+        let chome = "２丁目"
         
-        db.collection("base").document("\(pref)").getDocument{(querysnapshot, error) in
+        db.collection("base").document("\(pref)").collection("\(minici)").document("\(area)").collection("\(chome)").document("可燃ゴミ").getDocument{(querysnapshot, error) in
             if let error = error {
                 print("\(error)")
                 return
@@ -42,38 +30,26 @@ class database: UIViewController{
             
             
         }
-        
-//        var areas: [Area] = []
-//
-//        db.collection("base").getDocuments(){
-//            collection, err in
-//
-//            if let err = err{
-//                print("Error: getting documents: \(err)")
-//            }else{
-//                for document in collection!.documents{
-//                    guard  let rubbishDicList: [[String: Any]] = document.get("gomi_list") as? [[String: Any]] else {
-//                        continue
-//                    }
-//
-//
-//                    var rubbishtypes: [Rubbish] = []
-//
-//                    for rubbishDic in rubbishDicList {
-//                        guard let rubbishDay = rubbishDic["day"] as? String, let rubbishType = rubbishDic["type"] as? String else{
-//                            continue
-//                        }
-//
-//                        let rubbish = Rubbish(day: rubbishDay, type: rubbishType)
-//
-//                        rubbishtypes.append(rubbish)
-//
-//                    }
-//
-//                    let area = Area()
-//
-//                }
-//            }
-//        }
+        print("back test_read_db")
     }
+    
+    func readDataBase(pref: String, minici: String, area: String, chome: String, gomi_type: String){
+        print("front read_db")
+        
+        let db = Firestore.firestore()
+        
+        db.collection("base").document("\(pref)").collection("\(minici)").document("\(area)").collection("\(chome)").document("\(gomi_type)").getDocument{(snapshot, error) in
+            if let error = error {
+                print("\(error)")
+                return
+            }
+            guard let data = snapshot?.data() else {return}
+            print(data)
+        }
+    }
+    
+    func writeDataBase(pref: String, minici: String, area: String, chome: String, gomi_type: String){
+        
+    }
+    
 }
