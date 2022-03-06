@@ -58,6 +58,6 @@ let prefecturesData = [
 ]
 
 struct PrefectureData: Identifiable {
-    var id = UUID();
+    var id = UUID()
     var name: String
 }
