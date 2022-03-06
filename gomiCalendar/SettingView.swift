@@ -1,5 +1,5 @@
 //
-//  SettingView.swift
+//  RegionSettingView.swift
 //  gomiCalendar
 //
 //  Created by 天野優也 on 2022/03/04.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SettingView: View {
+struct RegionSettingView: View {
     @State private var showingModal = false
     
     var body: some View {
@@ -27,15 +27,16 @@ struct SettingView: View {
     }
 }
 
-struct SettingView_Previews: PreviewProvider {
+struct RegionSettingView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingView()
+        RegionSettingView()
     }
 }
 
 struct ModalView: View {
     @EnvironmentObject private var displayState: DisplayState
-    @State var prefecture: String = ""
+    @State var postalCode: String = ""
+    @State var prefecture: String = "東京都"
     @State var city: String = ""
     @State var region: String = ""
     @State var block: String = ""
@@ -45,22 +46,40 @@ struct ModalView: View {
         NavigationView {
             VStack(spacing: 30) {
                 VStack(alignment: .center, spacing: 25) {
-                            Picker(selection: $prefecture, label: Text("都道府県")) {
-                                ForEach(prefecturesData) {
-                                    prefecture in
-                                    Text(prefecture.name).tag(prefecture.name)
-                                }
-                            }
-                            .pickerStyle(.wheel)
-                            .frame(height: 65)
-                            .clipped()
-                    TextField("市区町村", text: $city)
-                    TextField("地区", text: $region)
-                    TextField("丁目", text: $block)
+                    HStack(spacing: 20) {
+                        TextField("郵便番号（半角）", text: $postalCode)
+                            .border(Color.gray, width: 2)
+                            .cornerRadius(3.0)
+                        Button(action: {print(postalCode)}) {
+                            Text("自動入力")
+                        }
+                    }
+                    Picker(selection: $prefecture, label: Text("都道府県")) {
+                        ForEach(prefecturesData) {
+                            prefecture in
+                            Text(prefecture.name).tag(prefecture.name)
+                        }
+                    }
+                    .pickerStyle(.wheel)
+                    .frame(height: 55)
+                    .clipped()
+                    TextField("市区町村（全角）", text: $city)
+                        .border(Color.gray, width: 2)
+                        .cornerRadius(3.0)
+                        .disableAutocorrection(true)
+                    TextField("地区（全角）", text: $region)
+                        .border(Color.gray, width: 2)
+                        .cornerRadius(3.0)
+                        .disableAutocorrection(true)
+                    TextField("丁目（半角数字）", text: $block)
+                        .border(Color.gray, width: 2)
+                        .cornerRadius(3.0)
+                        .disableAutocorrection(true)
                 }
                 .padding(20)
                 .textFieldStyle(.roundedBorder)
-                Button(action: {displayState.displayMode = display.calendar})
+                Button(action: {displayState.displayMode = display.calendar
+                })
                     {
                     Text("設定する")
                         .font(.footnote)
@@ -88,7 +107,6 @@ struct ModalView: View {
         URLSession.shared.dataTask(with: request) { data, response, error in
             
             if let data = data {    // ①データ取得チェック
- 
                 /// ②JSON→Responseオブジェクト変換
                 let decoder = JSONDecoder()
                 guard let decodedResponse = try? decoder.decode(Response.self, from: data) else {
