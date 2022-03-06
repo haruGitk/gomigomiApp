@@ -16,6 +16,8 @@ struct ContentView: View {
             Text("read db")
         }
     }
+    
+    // https://note.com/dngri/n/ndd5af885162e
     func read_db(){
         
         print("front read_db")
