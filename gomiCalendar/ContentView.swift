@@ -15,6 +15,9 @@ struct ContentView: View {
         Button(action: {read_db()}){
             Text("read db")
         }
+        Button(action: {write_db()}){
+            Text("write db")
+        }
     }
     
     // https://note.com/dngri/n/ndd5af885162e
@@ -40,6 +43,15 @@ struct ContentView: View {
         }
         print("back read_db")
     }
+    
+    func write_db(){
+        print("front write_db")
+        let db = Firestore.firestore()
+        
+        
+        print("back write_db")
+    }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
