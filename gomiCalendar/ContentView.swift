@@ -27,14 +27,23 @@ struct ContentView: View {
     }
     
     func testWriteDb(){
-        print("front test_write_db")
+        print("start test_write_db")
         let db = Firestore.firestore()
         
+        let pref = "東京都"
+        let minici = "千代田区"
+        let area = "内神田"
+        let chome = "３丁目"
         
-        print("back test_write_db")
+        db.collection("base").document("\(pref)").collection("\(minici)").document("\(area)").collection("\(chome)").document("資源ゴミ").setData(["Friday": 1])
+        
+        print("end test_write_db")
+        
     }
     
 }
+
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

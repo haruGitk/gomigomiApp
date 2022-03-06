@@ -34,7 +34,7 @@ class DataBaseClass{
     }
     
     func readDataBase(pref: String, minici: String, area: String, chome: String, gomi_type: String){
-        print("front read_db")
+        print("start read_db")
         
         let db = Firestore.firestore()
         
@@ -46,10 +46,15 @@ class DataBaseClass{
             guard let data = snapshot?.data() else {return}
             print(data)
         }
+        print("end read_db")
     }
     
     func writeDataBase(pref: String, minici: String, area: String, chome: String, gomi_type: String){
+        print("start write_db")
         
+        let db = Firestore.firestore()
+        
+        print("end write_db")
     }
     
 }
