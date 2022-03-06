@@ -7,9 +7,13 @@
 //
 
 import SwiftUI
+import Firebase
 
 @main
 struct gomiCalendarApp: App {
+    init(){
+        FirebaseApp.configure()
+    }
     var body: some Scene {
         WindowGroup {
             ContentView()

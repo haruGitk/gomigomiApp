@@ -12,9 +12,7 @@
 		281402B227D20F2F00E1ABC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 281402B127D20F2F00E1ABC4 /* Assets.xcassets */; };
 		281402B527D20F2F00E1ABC4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 281402B427D20F2F00E1ABC4 /* Preview Assets.xcassets */; };
 		F5877D6927D245CE008AACE6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5877D6827D245CE008AACE6 /* GoogleService-Info.plist */; };
-		F5877D7A27D24F1D008AACE6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5877D7927D24F1D008AACE6 /* AppDelegate.swift */; };
 		F5877D7D27D25903008AACE6 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = F5877D7C27D25903008AACE6 /* FirebaseAnalytics */; };
-		F5877D7F27D25903008AACE6 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = F5877D7E27D25903008AACE6 /* FirebaseAppCheck */; };
 		F5877D8127D25903008AACE6 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F5877D8027D25903008AACE6 /* FirebaseAuth */; };
 		F5877D8327D25903008AACE6 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = F5877D8227D25903008AACE6 /* FirebaseCrashlytics */; };
 		F5877D8527D25903008AACE6 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = F5877D8427D25903008AACE6 /* FirebaseDatabase */; };
@@ -32,6 +30,7 @@
 		281402B427D20F2F00E1ABC4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F5877D6827D245CE008AACE6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F5877D7927D24F1D008AACE6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F5877D8E27D354CC008AACE6 /* database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = database.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,7 +41,6 @@
 				F5877D8527D25903008AACE6 /* FirebaseDatabase in Frameworks */,
 				F5877D8927D25903008AACE6 /* FirebaseFunctions in Frameworks */,
 				F5877D8D27D25903008AACE6 /* FirebaseStorage in Frameworks */,
-				F5877D7F27D25903008AACE6 /* FirebaseAppCheck in Frameworks */,
 				F5877D8B27D25903008AACE6 /* FirebaseInstallations in Frameworks */,
 				F5877D8327D25903008AACE6 /* FirebaseCrashlytics in Frameworks */,
 				F5877D8127D25903008AACE6 /* FirebaseAuth in Frameworks */,
@@ -74,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				281402AD27D20F2A00E1ABC4 /* gomiCalendarApp.swift */,
+				F5877D8E27D354CC008AACE6 /* database.swift */,
 				F5877D7927D24F1D008AACE6 /* AppDelegate.swift */,
 				281402AF27D20F2A00E1ABC4 /* ContentView.swift */,
 				281402B127D20F2F00E1ABC4 /* Assets.xcassets */,
@@ -109,7 +108,6 @@
 			name = gomiCalendar;
 			packageProductDependencies = (
 				F5877D7C27D25903008AACE6 /* FirebaseAnalytics */,
-				F5877D7E27D25903008AACE6 /* FirebaseAppCheck */,
 				F5877D8027D25903008AACE6 /* FirebaseAuth */,
 				F5877D8227D25903008AACE6 /* FirebaseCrashlytics */,
 				F5877D8427D25903008AACE6 /* FirebaseDatabase */,
@@ -176,7 +174,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5877D7A27D24F1D008AACE6 /* AppDelegate.swift in Sources */,
 				281402B027D20F2A00E1ABC4 /* ContentView.swift in Sources */,
 				281402AE27D20F2A00E1ABC4 /* gomiCalendarApp.swift in Sources */,
 			);
@@ -398,11 +395,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F5877D7B27D25903008AACE6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalytics;
-		};
-		F5877D7E27D25903008AACE6 /* FirebaseAppCheck */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F5877D7B27D25903008AACE6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAppCheck;
 		};
 		F5877D8027D25903008AACE6 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
