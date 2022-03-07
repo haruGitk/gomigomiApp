@@ -31,7 +31,7 @@ struct GarbageSettingView: View {
                             Picker(selection: $data, label: Text("日曜日")) {
                                 ForEach(garbageTypeData) {
                                     garbageType in
-                                    garbageSelectionView(garbageType: garbageType)
+                                    garbageSelectionView(garbageType: garbageType).tag(garbageType.name)
                                 }
                             }
                         case day.monday:
@@ -49,8 +49,13 @@ struct GarbageSettingView: View {
                         }
                     }
                 }
-                Button(action: {displayState.displayMode = display.calendar}) {
-                    Text("設定を終了する")
+                HStack {
+                    Button(action: {displayState.displayMode = display.calendar}) {
+                        Text("キャンセル")
+                    }
+                    Button(action: {displayState.displayMode = display.calendar}) {
+                        Text("完了")
+                    }
                 }
             }.navigationTitle("ごみ収集日設定")
                 .navigationBarTitleDisplayMode(.inline)
@@ -105,7 +110,7 @@ var garbageTypeData = [
     GarbageTypeData(garbage: garbage.can, name: "缶"),
     GarbageTypeData(garbage: garbage.paper, name: "古紙・段ボール"),
     GarbageTypeData(garbage: garbage.others, name: "その他"),
-    GarbageTypeData(garbage: garbage.initial, name: ""),
+    GarbageTypeData(garbage: garbage.initial, name: "回収なし"),
 ]
 
 struct garbageSelectionView: View {
