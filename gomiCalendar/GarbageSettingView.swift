@@ -18,35 +18,42 @@ struct GarbageSettingView: View {
         GarbageCollectionDay(day: day.saturday, garbage: garbage.initial),
     ]
     @State var data: String = ""
+    @EnvironmentObject private var displayState: DisplayState
     
     var body: some View {
         NavigationView {
-            List{
-                ForEach(garbageCollectionData) {
-                    garbageCollection in
-                    switch garbageCollection.day {
-                    case day.sunday:
-                        Picker(selection: $data, label: Text("日曜日")) {
-                            ForEach(garbageTypeData) {
-                                garbageType in
-                                garbageSelectionView(garbageType: garbageType)
+            VStack{
+                List{
+                    ForEach(garbageCollectionData) {
+                        garbageCollection in
+                        switch garbageCollection.day {
+                        case day.sunday:
+                            Picker(selection: $data, label: Text("日曜日")) {
+                                ForEach(garbageTypeData) {
+                                    garbageType in
+                                    garbageSelectionView(garbageType: garbageType)
+                                }
                             }
+                        case day.monday:
+                            Text("月曜日")
+                        case day.tuesday:
+                            Text("火曜日")
+                        case day.wednesday:
+                            Text("水曜日")
+                        case day.thursday:
+                            Text("木曜日")
+                        case day.friday:
+                            Text("金曜日")
+                        case day.saturday:
+                            Text("土曜日")
                         }
-                    case day.monday:
-                        Text("月曜日")
-                    case day.tuesday:
-                        Text("火曜日")
-                    case day.wednesday:
-                        Text("水曜日")
-                    case day.thursday:
-                        Text("木曜日")
-                    case day.friday:
-                        Text("金曜日")
-                    case day.saturday:
-                        Text("土曜日")
                     }
                 }
+                Button(action: {displayState.displayMode = display.calendar}) {
+                    Text("設定を終了する")
+                }
             }.navigationTitle("ごみ収集日設定")
+                .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

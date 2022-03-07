@@ -18,6 +18,8 @@ struct ContentView: View {
     var body: some View {
         if displayState.displayMode == display.regionSetting {
             RegionSettingView()
+        } else if displayState.displayMode == display.gabargeSetting {
+            GarbageSettingView()
         } else if displayState.displayMode == display.calendar {
             CalendarView()
         }

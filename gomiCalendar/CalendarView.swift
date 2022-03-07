@@ -8,8 +8,16 @@
 import SwiftUI
 
 struct CalendarView: View {
+    @EnvironmentObject private var displayState: DisplayState
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            Button(action: {displayState.displayMode = display.gabargeSetting}) {
+                Text("ゴミカレンダーの登録")
+            }
+            Button(action: {displayState.displayMode = display.regionSetting}) {
+                Text("地域の再設定")
+            }
+        }
     }
 }
 
