@@ -66,6 +66,14 @@ class DataBaseClass{
         print("end write_db")
     }
     
-
+    func searchDataBase(pref: String, minici: String, area: String, chome: String){
+        print("start search_db")
+        
+        let db = Firestore.firestore()
+        
+        db.collection("base").document("\(pref)").collection("\(minici)").document("\(area)").collection("\(chome)")
+        
+        print("end search_db")
+    }
     
 }
