@@ -14,6 +14,8 @@ struct gomiCalendarApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(DisplayState())
+                .environmentObject(GarbageCollectionSettingModalState())
+                .environmentObject(RegionSettingModalState())
         }
     }
 }

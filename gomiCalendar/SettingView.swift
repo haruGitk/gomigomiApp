@@ -34,14 +34,15 @@ struct RegionSettingView_Previews: PreviewProvider {
 }
 
 struct ModalView: View {
+    @AppStorage("regionRegistered") var regionRegistered = false
     @EnvironmentObject private var displayState: DisplayState
+    @EnvironmentObject var showingRegionSettingModal: RegionSettingModalState
     @State var postalCode: String = ""
     @State var prefecture: String = "東京都"
     @State var city: String = ""
     @State var region: String = ""
     @State var block: String = ""
     @State var showingModal: Bool
-    
     var body: some View {
         NavigationView {
             VStack(spacing: 30) {
@@ -78,7 +79,13 @@ struct ModalView: View {
                 }
                 .padding(20)
                 .textFieldStyle(.roundedBorder)
-                Button(action: {displayState.displayMode = display.calendar
+                Button(action: {
+                    if (displayState.displayMode == display.regionSetting) {
+                        displayState.displayMode = display.calendar
+                    } else {
+                        showingRegionSettingModal.showingModal = false
+                    }
+                    regionRegistered = true
                 })
                     {
                     Text("設定する")

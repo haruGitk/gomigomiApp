@@ -7,55 +7,109 @@
 
 import SwiftUI
 
-struct GarbageSettingView: View {
-    var garbageCollectionData = [
-        GarbageCollectionDay(day: day.sunday, garbage: garbage.initial),
-        GarbageCollectionDay(day: day.monday, garbage: garbage.initial),
-        GarbageCollectionDay(day: day.tuesday, garbage: garbage.initial),
-        GarbageCollectionDay(day: day.wednesday, garbage: garbage.initial),
-        GarbageCollectionDay(day: day.thursday, garbage: garbage.initial),
-        GarbageCollectionDay(day: day.friday, garbage: garbage.initial),
-        GarbageCollectionDay(day: day.saturday, garbage: garbage.initial),
-    ]
-    @State var data: String = ""
+struct GarbageSettingModalView: View {
+    // ページ遷移用変数
     @EnvironmentObject private var displayState: DisplayState
-    
+    @EnvironmentObject var showingGarbageCollectionSettingModal: GarbageCollectionSettingModalState
+    // pickerが辞書型の変数を受け付けなかったため、一時的に個別の変数を導入
+    @State var burnable = ""
+    @State var unburnable = ""
+    @State var plastic = ""
+    @State var bottle = ""
+    @State var can = ""
+    @State var paper = ""
+    @State var others = ""
+    @State var showingModal: Bool
+    var garbageTypeData = [
+        GarbageTypeData(garbage: garbage.burnable, name: "可燃ゴミ"),
+        GarbageTypeData(garbage: garbage.unburnable, name: "不燃ゴミ"),
+        GarbageTypeData(garbage: garbage.plastic, name: "プラスチック"),
+        GarbageTypeData(garbage: garbage.bottle, name: "ビン"),
+        GarbageTypeData(garbage: garbage.can, name: "カン"),
+        GarbageTypeData(garbage: garbage.paper, name: "古紙"),
+        GarbageTypeData(garbage: garbage.others, name: "その他"),
+    ]
     var body: some View {
         NavigationView {
-            VStack{
+            VStack(spacing: 10){
                 List{
-                    ForEach(garbageCollectionData) {
-                        garbageCollection in
-                        switch garbageCollection.day {
-                        case day.sunday:
-                            Picker(selection: $data, label: Text("日曜日")) {
-                                ForEach(garbageTypeData) {
-                                    garbageType in
-                                    garbageSelectionView(garbageType: garbageType).tag(garbageType.name)
+                    ForEach(garbageTypeData) {
+                        garbageType in
+                        switch garbageType.garbage {
+                        case garbage.burnable:
+                            Picker(selection: $burnable, label: Text("可燃ゴミ")) {
+                                ForEach(dayData) {
+                                    day in
+                                    daySelectionView(day: day).tag(day.name)
                                 }
                             }
-                        case day.monday:
-                            Text("月曜日")
-                        case day.tuesday:
-                            Text("火曜日")
-                        case day.wednesday:
-                            Text("水曜日")
-                        case day.thursday:
-                            Text("木曜日")
-                        case day.friday:
-                            Text("金曜日")
-                        case day.saturday:
-                            Text("土曜日")
+                        case garbage.unburnable:
+                            Picker(selection: $unburnable, label: Text("不燃ゴミ")) {
+                                ForEach(dayData) {
+                                    day in
+                                    daySelectionView(day: day).tag(day.name)
+                                }
+                            }
+                        case garbage.plastic:
+                            Picker(selection: $plastic, label: Text("プラスチック")) {
+                                ForEach(dayData) {
+                                    day in
+                                    daySelectionView(day: day).tag(day.name)
+                                }
+                            }
+                        case garbage.bottle:
+                            Picker(selection: $bottle, label: Text("ビン")) {
+                                ForEach(dayData) {
+                                    day in
+                                    daySelectionView(day: day).tag(day.name)
+                                }
+                            }
+                        case garbage.can:
+                            Picker(selection: $can, label: Text("カン")) {
+                                ForEach(dayData) {
+                                    day in
+                                    daySelectionView(day: day).tag(day.name)
+                                }
+                            }
+                        case garbage.paper:
+                            Picker(selection: $paper,  label: Text("古紙")) {
+                                ForEach(dayData) {
+                                    day in
+                                    daySelectionView(day: day).tag(day.name)
+                                }
+                            }
+                        case garbage.others:
+                            Picker(selection: $others, label: Text("その他")) {
+                                ForEach(dayData) {
+                                    day in
+                                    daySelectionView(day: day).tag(day.name)
+                                }
+                            }
                         }
                     }
                 }
-                HStack {
-                    Button(action: {displayState.displayMode = display.calendar}) {
-                        Text("キャンセル")
-                    }
-                    Button(action: {displayState.displayMode = display.calendar}) {
-                        Text("完了")
-                    }
+                .frame(maxHeight: 380)
+                .clipped()
+                Button(action: {
+                    // データベース受け渡し用の変数
+                    let data: Dictionary<String, Dictionary<String,Int>> = [
+                        "可燃ゴミ": [burnable: 1],
+                        "不燃ゴミ": [unburnable: 1],
+                        "プラスチック": [plastic: 1],
+                        "ビン": [bottle: 1],
+                        "カン": [can: 1],
+                        "古紙": [paper: 1],
+                        "その他": [others: 1]
+                    ]
+                    showingGarbageCollectionSettingModal.showingModal = false
+                }) {
+                    Text("完了")
+                        .font(.callout)
+                        .foregroundColor(Color.white)
+                        .fontWeight(.bold)
+                        .frame(width: 70, height: 70)
+                        .background(Color.green)
+                        .clipShape(Circle())
                 }
             }.navigationTitle("ごみ収集日設定")
                 .navigationBarTitleDisplayMode(.inline)
@@ -63,17 +117,27 @@ struct GarbageSettingView: View {
     }
 }
 
-struct GarbageSettingView_Previews: PreviewProvider {
+struct GarbageSettingModalView_Previews: PreviewProvider {
     static var previews: some View {
-        GarbageSettingView()
+        GarbageSettingModalView(showingModal: true)
     }
 }
 
-struct GarbageCollectionDay: Identifiable {
+struct DayData: Identifiable {
     var id = UUID()
     var day: day
-    var garbage: garbage
+    var name: String
 }
+
+var dayData = [
+    DayData(day: day.sunday, name: "日曜日"),
+    DayData(day: day.monday, name: "月曜日"),
+    DayData(day: day.tuesday, name: "火曜日"),
+    DayData(day: day.wednesday, name: "水曜日"),
+    DayData(day: day.thursday, name: "木曜日"),
+    DayData(day: day.friday, name: "金曜日"),
+    DayData(day: day.saturday, name: "土曜日"),
+]
 
 struct GarbageTypeData: Identifiable {
     var id = UUID()
@@ -99,23 +163,11 @@ enum garbage {
     case can
     case paper
     case others
-    case initial
 }
 
-var garbageTypeData = [
-    GarbageTypeData(garbage: garbage.burnable, name: "燃えるゴミ"),
-    GarbageTypeData(garbage: garbage.unburnable, name: "燃えないゴミ"),
-    GarbageTypeData(garbage: garbage.plastic, name: "プラスチック"),
-    GarbageTypeData(garbage: garbage.bottle, name: "ビン"),
-    GarbageTypeData(garbage: garbage.can, name: "缶"),
-    GarbageTypeData(garbage: garbage.paper, name: "古紙・段ボール"),
-    GarbageTypeData(garbage: garbage.others, name: "その他"),
-    GarbageTypeData(garbage: garbage.initial, name: "回収なし"),
-]
-
-struct garbageSelectionView: View {
-    var garbageType: GarbageTypeData
+struct daySelectionView: View {
+    var day: DayData
     var body: some View {
-        Text(garbageType.name)
+        Text(day.name)
     }
 }
