@@ -27,8 +27,6 @@ class DataBaseClass{
             }
             guard let data = querysnapshot?.data() else {return}
             print(data)
-            
-            
         }
         print("back test_read_db")
     }
@@ -62,7 +60,6 @@ class DataBaseClass{
                 print("Document written")
             }
         }
-        
         print("end write_db")
     }
     
@@ -71,9 +68,12 @@ class DataBaseClass{
         
         let db = Firestore.firestore()
         
-        db.collection("base").document("\(pref)").collection("\(minici)").document("\(area)").collection("\(chome)")
-        
+//        db.collection("base").document("\(pref)").collection("\(minici)").document("\(area)").collection("\(chome)").getDocuments{(snap, error) in
+//            if snap!.exists{
+//                print("no doc found")
+//            }
+//
+//        }
         print("end search_db")
     }
-    
 }
