@@ -49,12 +49,23 @@ class DataBaseClass{
         print("end read_db")
     }
     
-    func writeDataBase(pref: String, minici: String, area: String, chome: String, gomi_type: String){
+    func writeDataBase(pref: String, minici: String, area: String, chome: String, gomi_type: String, day: String, week: Int){
         print("start write_db")
         
         let db = Firestore.firestore()
         
+        db.collection("base").document("\(pref)").collection("\(minici)").document("\(area)").collection("\(chome)").document("\(gomi_type)").setData(["\(day)": week]){
+            err in
+            if let err = err{
+                print("Error writing document: \(err)")
+            } else{
+                print("Document written")
+            }
+        }
+        
         print("end write_db")
     }
+    
+
     
 }

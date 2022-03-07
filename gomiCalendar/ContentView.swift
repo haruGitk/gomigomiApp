@@ -30,12 +30,19 @@ struct ContentView: View {
         print("start test_write_db")
         let db = Firestore.firestore()
         
-        let pref = "東京都"
-        let minici = "千代田区"
-        let area = "内神田"
+        let pref = "神奈川県"
+        let minici = "横須賀市"
+        let area = "久里浜"
         let chome = "３丁目"
         
-        db.collection("base").document("\(pref)").collection("\(minici)").document("\(area)").collection("\(chome)").document("資源ゴミ").setData(["Friday": 1])
+        db.collection("base").document("\(pref)").collection("\(minici)").document("\(area)").collection("\(chome)").document("可燃ゴミ").setData(["Tuesday": 1, "Friday": 1]){
+            err in
+            if let err = err{
+                print("Error writing document: \(err)")
+            } else{
+                print("Document written")
+            }
+        }
         
         print("end test_write_db")
         
