@@ -38,15 +38,15 @@ struct ModalView: View {
     @EnvironmentObject private var displayState: DisplayState
     @EnvironmentObject var showingRegionSettingModal: RegionSettingModalState
     @State var postalCode: String = ""
-    @State var prefecture: String = "東京都"
+    @State var pref: String = "東京都"
     @State var city: String = ""
-    @State var region: String = ""
+    @State var area: String = ""
     @State var block: String = ""
     @State var showingModal: Bool
     var body: some View {
         NavigationView {
             VStack(spacing: 30) {
-                VStack(alignment: .center, spacing: 25) {
+                List {
                     HStack(spacing: 20) {
                         TextField("郵便番号（半角）", text: $postalCode)
                             .border(Color.gray, width: 2)
@@ -55,20 +55,18 @@ struct ModalView: View {
                             Text("自動入力")
                         }
                     }
-                    Picker(selection: $prefecture, label: Text("都道府県")) {
+                    Picker(selection: $pref, label: Text("都道府県")) {
                         ForEach(prefecturesData) {
                             prefecture in
                             Text(prefecture.name).tag(prefecture.name)
                         }
                     }
-                    .pickerStyle(.wheel)
-                    .frame(height: 55)
                     .clipped()
                     TextField("市区町村（全角）", text: $city)
                         .border(Color.gray, width: 2)
                         .cornerRadius(3.0)
                         .disableAutocorrection(true)
-                    TextField("地区（全角）", text: $region)
+                    TextField("地区（全角）", text: $area)
                         .border(Color.gray, width: 2)
                         .cornerRadius(3.0)
                         .disableAutocorrection(true)
@@ -80,6 +78,14 @@ struct ModalView: View {
                 .padding(20)
                 .textFieldStyle(.roundedBorder)
                 Button(action: {
+                    var data: Dictionary<String, Dictionary<String, String>> = [
+                        "region": [
+                            "pref": pref,
+                            "city": city,
+                            "area": area,
+                            "block": block
+                        ]
+                    ]
                     if (displayState.displayMode == display.regionSetting) {
                         displayState.displayMode = display.calendar
                     } else {
