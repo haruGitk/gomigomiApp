@@ -45,7 +45,7 @@ struct ModalView: View {
     @State var showingModal: Bool
     var body: some View {
         NavigationView {
-            VStack(spacing: 30) {
+            VStack {
                 List {
                     HStack(spacing: 20) {
                         TextField("郵便番号（半角）", text: $postalCode)
@@ -75,7 +75,8 @@ struct ModalView: View {
                         .cornerRadius(3.0)
                         .disableAutocorrection(true)
                 }
-                .padding(20)
+                .frame(height: 350)
+                .padding()
                 .textFieldStyle(.roundedBorder)
                 Button(action: {
                     var data: Dictionary<String, Dictionary<String, String>> = [
