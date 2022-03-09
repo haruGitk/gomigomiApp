@@ -11,10 +11,10 @@ struct CalendarView: View {
     @EnvironmentObject var showingRegionSettingModal: RegionSettingModalState
     @EnvironmentObject var showingGarbageCollectionSettingModal: GarbageCollectionSettingModalState
     @State private var date = Date()
-    var pref = "東京都"
-    var city = "調布市"
-    var area = "下石原"
-    var block = "1"
+    @AppStorage("pref") var pref: String = "東京都"
+    @AppStorage("city") var city: String = ""
+    @AppStorage("area") var area: String = ""
+    @AppStorage("block") var block: String = ""
     var body: some View {
         VStack(spacing: 20){
             VStack(spacing: 10) {
@@ -31,8 +31,12 @@ struct CalendarView: View {
                 HStack{
                     Text("地域: ")
                     Button(action: {showingRegionSettingModal.showingModal = true}) {
-                        Text("\(pref)\(city)\(area)\(block)")
-                            .font(.callout)
+                        if ("\(pref)\(city)\(area)\(block)" == "") {
+                            Text("地域を選択してください")
+                        } else {
+                            Text("\(pref)\(city)\(area)\(block)")
+                                .font(.callout)
+                        }
                     }
                 }
             }

@@ -37,11 +37,12 @@ struct ModalView: View {
     @AppStorage("regionRegistered") var regionRegistered = false
     @EnvironmentObject private var displayState: DisplayState
     @EnvironmentObject var showingRegionSettingModal: RegionSettingModalState
-    @State var postalCode: String = ""
-    @State var pref: String = "東京都"
-    @State var city: String = ""
-    @State var area: String = ""
-    @State var block: String = ""
+    @AppStorage("postalCode") var postalCode: String = ""
+    @AppStorage("pref") var pref: String = "東京都"
+    @AppStorage("city") var city: String = ""
+    @AppStorage("area") var area: String = ""
+    @AppStorage("block") var block: String = ""
+    @State var results = [Result]()
     @State var showingModal: Bool
     var body: some View {
         NavigationView {
@@ -51,7 +52,9 @@ struct ModalView: View {
                         TextField("郵便番号（半角）", text: $postalCode)
                             .border(Color.gray, width: 2)
                             .cornerRadius(3.0)
-                        Button(action: {print(postalCode)}) {
+                        Button(action: {
+                            getRegionalGarbageCollectionInformation(postalCode: postalCode)
+                        }) {
                             Text("自動入力")
                         }
                     }
@@ -75,7 +78,7 @@ struct ModalView: View {
                         .cornerRadius(3.0)
                         .disableAutocorrection(true)
                 }
-                .frame(height: 350)
+                .frame(height: 300)
                 .padding()
                 .textFieldStyle(.roundedBorder)
                 Button(action: {
@@ -108,38 +111,44 @@ struct ModalView: View {
         }
     }
     
-    func getRegionalGarbageCollectionInformation() {
-        @State var results = [Result]()   // 空の書籍情報配列を生成
-        
-        guard let url = URL(string: "https://itunes.apple.com/search?term=swiftui&country=jp&media=ebook") else {
+    func getRegionalGarbageCollectionInformation(postalCode: String) {
+        let endpoint = "https://zipcloud.ibsnet.co.jp/api/search"
+        let query = "?zipcode=\(postalCode)"
+        /// URLの生成
+        guard let url = URL(string: endpoint + query) else {
             /// 文字列が有効なURLでない場合の処理
             return
         }
-        // リクエストの作成
+        /// URLリクエストの生成
         let request = URLRequest(url: url)
+        
         /// URLにアクセス
         URLSession.shared.dataTask(with: request) { data, response, error in
             
-            if let data = data {    // ①データ取得チェック
+            if let data = data {   // ①データ取得チェック
+ 
                 /// ②JSON→Responseオブジェクト変換
                 let decoder = JSONDecoder()
                 guard let decodedResponse = try? decoder.decode(Response.self, from: data) else {
-                    print("Json decode エラー")
+                    pref = ""
+                    city = ""
+                    area = ""
+                    block = ""
                     return
                 }
- 
                 /// ③書籍情報をUIに適用
                 DispatchQueue.main.async {
                     results = decodedResponse.results
+                    pref = results[0].address1
+                    city = results[0].address2
+                    area = results[0].address3
+                    block = ""
                 }
-                print(decodedResponse)
  
             } else {
- 
                 /// ④データが取得できなかった場合の処理
                 print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
             }
-            
         }.resume()
     }
 }
@@ -157,8 +166,9 @@ struct Response: Codable {
  
 /// 個々の書籍情報の型
 struct Result: Codable {
-    var trackId: Int                // 書籍データのID
-    var trackName: String?          // 書籍タイトル
-    var artistName: String?         // 著者名
-    var formattedPrice: String?     // 価格（テキスト形式）
+    var address1: String  // 都道府県
+    var address2: String  // 市区町村
+    var address3: String  // 地域名
+    var prefcode: String    // 都道府県コード
+    var zipcode: String       // 郵便番号
 }
