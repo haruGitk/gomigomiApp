@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Foundation
 
 struct CalendarView: View {
     @EnvironmentObject var showingRegionSettingModal: RegionSettingModalState
@@ -14,6 +15,12 @@ struct CalendarView: View {
     var pref = "東京都"
     var city = "調布市"
     var area = "下石原"
+    var paper = "月"
+    var burnable = "火"
+    var plastic = "水"
+    var unburnable = "木"
+    var can = "金"
+    var bottle = "金"
     var block = "1"
     var body: some View {
         VStack(spacing: 20){
@@ -44,11 +51,44 @@ struct CalendarView: View {
                 )
                 .datePickerStyle(.graphical)
                 .frame(maxHeight: 300)
+                .padding(10)
+                
                 ZStack {
                     Color(red: 0.9, green: 0.9, blue: 0.9, opacity: 1)
                          .ignoresSafeArea()
-                         .padding()
-                    Text(date, format: .dateTime.weekday())
+                    HStack{
+                        if paper == date.formatted(.dateTime.weekday()){
+                            Image("paper")
+                            .resizable()
+                            .frame(width: 80.0, height: 80.0)
+                            .padding()
+                        }
+                        if burnable == date.formatted(.dateTime.weekday()){
+                            Image("burnable")
+                            .resizable()
+                            .frame(width: 80.0, height: 80.0)
+                        }
+                        if plastic == date.formatted(.dateTime.weekday()){
+                            Image("plastic")
+                            .resizable()
+                            .frame(width: 80.0, height: 80.0)
+                        }
+                        if unburnable == date.formatted(.dateTime.weekday()){
+                            Image("unburnable")
+                            .resizable()
+                            .frame(width: 80.0, height: 80.0)
+                        }
+                        if can == date.formatted(.dateTime.weekday()){
+                            Image("can")
+                            .resizable()
+                            .frame(width: 80.0, height: 80.0)
+                        }
+                        if bottle == date.formatted(.dateTime.weekday()){
+                            Image("bottle")
+                            .resizable()
+                            .frame(width: 80.0, height: 80.0)
+                        }
+                    }
                 }
                 .frame(height: 100)
             }
