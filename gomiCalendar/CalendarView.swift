@@ -4,6 +4,7 @@
 //
 //  Created by 天野優也 on 2022/03/05.
 //
+//
 
 import SwiftUI
 import Foundation
@@ -15,6 +16,18 @@ struct CalendarView: View {
     var pref = "東京都"
     var city = "調布市"
     var area = "下石原"
+    
+    // データベース受け渡し用の変数
+    let data: Dictionary<String, Dictionary<String,Int>> = [
+        "可燃ゴミ": ["月曜日": 1],
+        "不燃ゴミ": ["火曜日": 1],
+        "プラスチック": ["水曜日": 1],
+        "ビン": ["木曜日": 1],
+        "カン": ["金曜日": 1],
+        "古紙": ["月曜日": 1],
+        "その他": ["火曜日": 1]
+    ]
+  
     var paperday = "月曜日"
     var burnableday = "火曜日"
     var plasticday = "水曜日"
@@ -55,7 +68,7 @@ struct CalendarView: View {
                 .padding(10)
                 
                 ZStack {
-                    Color(red: 0.9, green: 0.9, blue: 0.9, opacity: 1)
+                    Color(red: 0.9, green: 0.9, blue: 0.9, opacity: 0)
                          .ignoresSafeArea()
                     HStack{
                         if paperday == date.formatted(.dateTime.weekday())+"曜日"{

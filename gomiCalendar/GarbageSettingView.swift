@@ -101,6 +101,7 @@ struct GarbageSettingModalView: View {
                         "古紙": [paperday: 1],
                         "その他": [othersday: 1]
                     ]
+                    print(data)
                     showingGarbageCollectionSettingModal.showingModal = false
                 }) {
                     Text("完了")
