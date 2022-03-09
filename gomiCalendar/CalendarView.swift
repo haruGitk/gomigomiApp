@@ -15,12 +15,13 @@ struct CalendarView: View {
     var pref = "東京都"
     var city = "調布市"
     var area = "下石原"
-    var paper = "月"
-    var burnable = "火"
-    var plastic = "水"
-    var unburnable = "木"
-    var can = "金"
-    var bottle = "金"
+    var paperday = "月曜日"
+    var burnableday = "火曜日"
+    var plasticday = "水曜日"
+    var unburnableday = "木曜日"
+    var canday = "金曜日"
+    var bottleday = "金曜日"
+    var otherday = "月曜日"
     var block = "1"
     var body: some View {
         VStack(spacing: 20){
@@ -57,36 +58,47 @@ struct CalendarView: View {
                     Color(red: 0.9, green: 0.9, blue: 0.9, opacity: 1)
                          .ignoresSafeArea()
                     HStack{
-                        if paper == date.formatted(.dateTime.weekday()){
+                        if paperday == date.formatted(.dateTime.weekday())+"曜日"{
                             Image("paper")
                             .resizable()
                             .frame(width: 80.0, height: 80.0)
-                            .padding()
+                            .clipShape(Circle())
                         }
-                        if burnable == date.formatted(.dateTime.weekday()){
+                        if burnableday == date.formatted(.dateTime.weekday())+"曜日"{
                             Image("burnable")
                             .resizable()
                             .frame(width: 80.0, height: 80.0)
+                            .clipShape(Circle())
                         }
-                        if plastic == date.formatted(.dateTime.weekday()){
+                        if plasticday == date.formatted(.dateTime.weekday())+"曜日"{
                             Image("plastic")
                             .resizable()
                             .frame(width: 80.0, height: 80.0)
+                            .clipShape(Circle())
                         }
-                        if unburnable == date.formatted(.dateTime.weekday()){
+                        if unburnableday == date.formatted(.dateTime.weekday())+"曜日"{
                             Image("unburnable")
                             .resizable()
                             .frame(width: 80.0, height: 80.0)
+                            .clipShape(Circle())
                         }
-                        if can == date.formatted(.dateTime.weekday()){
+                        if canday == date.formatted(.dateTime.weekday())+"曜日"{
                             Image("can")
                             .resizable()
                             .frame(width: 80.0, height: 80.0)
+                            .clipShape(Circle())
                         }
-                        if bottle == date.formatted(.dateTime.weekday()){
+                        if bottleday == date.formatted(.dateTime.weekday())+"曜日"{
                             Image("bottle")
                             .resizable()
                             .frame(width: 80.0, height: 80.0)
+                            .clipShape(Circle())
+                        }
+                        if otherday == date.formatted(.dateTime.weekday())+"曜日"{
+                            Image("other")
+                            .resizable()
+                            .frame(width: 80.0, height: 80.0)
+                            .clipShape(Circle())
                         }
                     }
                 }
