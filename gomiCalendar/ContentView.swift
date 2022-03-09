@@ -15,7 +15,7 @@ struct ContentView: View {
     var body: some View {
         Text("Hello, world!")
             .padding()
-        Button(action: {dbc1.readDataBase(pref: "東京都", minici: "千代田区", area: "西神田", chome: "２丁目", gomi_type: "可燃ゴミ")}){
+        Button(action: {dbc1.readDataBase(pref: "東京都", minici: "千代田区", area: "西神田", chome: "３丁目", gomi_type: "可燃ゴミ")}){
             Text("read db")
         }
         Button(action: {dbc1.testReadDatabase()}){
@@ -24,9 +24,19 @@ struct ContentView: View {
         Button(action: {testWriteDb()}){
             Text("test write db")
         }
+        Button(action: {check_returnValue_func()}){
+            Text("search db")
+        }
         Button(action: {testSearchDb()}){
             Text("test search db")
         }
+    }
+    
+    func check_returnValue_func(){
+        let result = dbc1.searchDataBase(pref: "千葉県", minici: "横須賀市", area: "久里浜", chome: "３丁目")
+        
+        print("result: ", result)
+        print("in check func: ", dbc1.returnValue)
     }
     
     func testWriteDb(){

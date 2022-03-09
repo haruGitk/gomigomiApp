@@ -41,7 +41,10 @@ class DataBaseClass{
                 print("\(error)")
                 return
             }
-            guard let data = snapshot?.data() else {return}
+            guard let data = snapshot?.data() else {
+                print("test")
+                return
+            }
             print(data)
         }
         print("end read_db")
@@ -62,18 +65,41 @@ class DataBaseClass{
         }
         print("end write_db")
     }
+
+    var returnValue: Int = -1
     
-    func searchDataBase(pref: String, minici: String, area: String, chome: String){
+    func searchDataBase(pref: String, minici: String, area: String, chome: String) -> Int{
         print("start search_db")
         
         let db = Firestore.firestore()
         
-//        db.collection("base").document("\(pref)").collection("\(minici)").document("\(area)").collection("\(chome)").getDocuments{(snap, error) in
-//            if snap!.exists{
-//                print("no doc found")
-//            }
-//
-//        }
+        
+        db.collection("base").document("\(pref)").collection("\(minici)").document("\(area)").collection("\(chome)").document("可燃ゴミ").getDocument{(snap, error) in
+            
+            let data = snap?.data()
+            
+            if (data != nil){
+                print("doc found")
+                self.returnValue = 1
+            } else {
+                print("doc not found")
+                self.returnValue = 0
+            }
+        }
         print("end search_db")
+        print("in searchDataBase func: ", returnValue)
+        
+        return returnValue
+    }
+    func searchRepeat(pref: String, minici: String, area: String, chome: String) -> Int {
+        var result: Int
+        
+        while(returnValue == -1){
+           result = searchDataBase(pref: pref, minici: minici, area: area, chome: chome)
+            break
+        }
+        
+        print("in searchRepeat func: ", returnValue)
+        return returnValue
     }
 }
