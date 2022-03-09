@@ -9,6 +9,17 @@
 import SwiftUI
 import Foundation
 
+// データベース受け渡し用の変数
+var datasample: Dictionary<String, Dictionary<String,Int>> = [
+    "可燃ゴミ": ["月曜日": 1],
+    "不燃ゴミ": ["火曜日": 1],
+    "プラスチック": ["水曜日": 1],
+    "ビン": ["木曜日": 1],
+    "カン": ["金曜日": 1],
+    "古紙": ["月曜日": 1],
+    "その他": ["火曜日": 1]
+]
+
 struct CalendarView: View {
     @EnvironmentObject var showingRegionSettingModal: RegionSettingModalState
     @EnvironmentObject var showingGarbageCollectionSettingModal: GarbageCollectionSettingModalState
@@ -17,24 +28,15 @@ struct CalendarView: View {
     var city = "調布市"
     var area = "下石原"
     
-    // データベース受け渡し用の変数
-    let data: Dictionary<String, Dictionary<String,Int>> = [
-        "可燃ゴミ": ["月曜日": 1],
-        "不燃ゴミ": ["火曜日": 1],
-        "プラスチック": ["水曜日": 1],
-        "ビン": ["木曜日": 1],
-        "カン": ["金曜日": 1],
-        "古紙": ["月曜日": 1],
-        "その他": ["火曜日": 1]
-    ]
+
   
-    var paperday = "月曜日"
-    var burnableday = "火曜日"
-    var plasticday = "水曜日"
-    var unburnableday = "木曜日"
-    var canday = "金曜日"
-    var bottleday = "金曜日"
-    var otherday = "月曜日"
+    var paperday = (datasample["古紙"]?.keys.first!)!
+    var burnableday = (datasample["可燃ゴミ"]?.keys.first!)!
+    var plasticday = (datasample["プラスチック"]?.keys.first!)!
+    var unburnableday = (datasample["不燃ゴミ"]?.keys.first!)!
+    var canday = (datasample["カン"]?.keys.first!)!
+    var bottleday = (datasample["ビン"]?.keys.first!)!
+    var otherday = (datasample["その他"]?.keys.first!)!
     var block = "1"
     var body: some View {
         VStack(spacing: 20){
