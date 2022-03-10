@@ -49,7 +49,7 @@ struct CalendarView: View {
     }
     
     func nextWeekDay(week:String)->String{
-        let weekArray = ["月", "火", "水", "木", "金", "土", "日"]
+        let weekArray = ["日", "月", "火", "水", "木", "金", "土"]
         var index = 0
         for i in 0..<weekArray.count {
             if week == weekArray[i]{
