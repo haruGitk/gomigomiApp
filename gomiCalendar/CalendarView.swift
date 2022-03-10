@@ -38,7 +38,6 @@ struct CalendarView: View {
     var canday = (datasample["カン"]?.keys.first!)!
     var bottleday = (datasample["ビン"]?.keys.first!)!
     var otherday = (datasample["その他"]?.keys.first!)!
-    var block = "1"
     
     func format(day:Date)->Int{
             let dateformatter = DateFormatter()
