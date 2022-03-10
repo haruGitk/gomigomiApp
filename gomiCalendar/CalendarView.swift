@@ -9,35 +9,26 @@
 import SwiftUI
 import Foundation
 
-// データベース受け渡し用の変数
-var datasample: Dictionary<String, Dictionary<String,Int>> = [
-    "可燃ゴミ": ["月曜日": 1],
-    "不燃ゴミ": ["火曜日": 1],
-    "プラスチック": ["水曜日": 1],
-    "ビン": ["木曜日": 1],
-    "カン": ["金曜日": 1],
-    "古紙": ["月曜日": 1],
-    "その他": ["火曜日": 1]
-]
-
 struct CalendarView: View {
     @EnvironmentObject var showingRegionSettingModal: RegionSettingModalState
     @EnvironmentObject var showingGarbageCollectionSettingModal: GarbageCollectionSettingModalState
     @State private var date = Date()
+    
+    // 地域設定用変数 - 永続化
     @AppStorage("pref") var pref: String = "東京都"
     @AppStorage("city") var city: String = ""
     @AppStorage("area") var area: String = ""
     @AppStorage("block") var block: String = ""
     
-
-  
-    var paperday = (datasample["古紙"]?.keys.first!)!
-    var burnableday = (datasample["可燃ゴミ"]?.keys.first!)!
-    var plasticday = (datasample["プラスチック"]?.keys.first!)!
-    var unburnableday = (datasample["不燃ゴミ"]?.keys.first!)!
-    var canday = (datasample["カン"]?.keys.first!)!
-    var bottleday = (datasample["ビン"]?.keys.first!)!
-    var otherday = (datasample["その他"]?.keys.first!)!
+    // ごみ回収日用変数 - 永続化
+    @AppStorage("burnableDay") var burnableday: String = ""
+    @AppStorage("unburnableDay") var unburnableday: String = ""
+    @AppStorage("paperDay") var paperday: String = ""
+    @AppStorage("canDay") var canday: String = ""
+    @AppStorage("plasticDay") var plasticday: String = ""
+    @AppStorage("bottleDay") var bottleday: String = ""
+    @AppStorage("othersDay") var othersday: String = ""
+    
     
     func format(day:Date)->Int{
             let dateformatter = DateFormatter()
@@ -141,7 +132,7 @@ struct CalendarView: View {
                                     .frame(width: 80.0, height: 80.0)
                                     .clipShape(Circle())
                                 }
-                                if otherday == date.formatted(.dateTime.weekday())+"曜日"{
+                                if othersday == date.formatted(.dateTime.weekday())+"曜日"{
                                     Image("other")
                                     .resizable()
                                     .frame(width: 80.0, height: 80.0)
@@ -193,7 +184,7 @@ struct CalendarView: View {
                                     .frame(width: 60.0, height: 60.0)
                                     .clipShape(Circle())
                                 }
-                                if otherday == nextWeekDay(week: date.formatted(.dateTime.weekday()))+"曜日"{
+                                if othersday == nextWeekDay(week: date.formatted(.dateTime.weekday()))+"曜日"{
                                     Image("other")
                                     .resizable()
                                     .frame(width: 60.0, height: 60.0)
