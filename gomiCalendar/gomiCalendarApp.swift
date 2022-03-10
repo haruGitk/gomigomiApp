@@ -13,6 +13,9 @@ struct gomiCalendarApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(DisplayState())
+                .environmentObject(GarbageCollectionSettingModalState())
+                .environmentObject(RegionSettingModalState())
         }
     }
 }

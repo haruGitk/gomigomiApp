@@ -11,6 +11,10 @@
 		281402B027D20F2A00E1ABC4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281402AF27D20F2A00E1ABC4 /* ContentView.swift */; };
 		281402B227D20F2F00E1ABC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 281402B127D20F2F00E1ABC4 /* Assets.xcassets */; };
 		281402B527D20F2F00E1ABC4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 281402B427D20F2F00E1ABC4 /* Preview Assets.xcassets */; };
+		8404854E27D236CF00379369 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404854D27D236CF00379369 /* SettingView.swift */; };
+		840C5DD727D51785009AF3C5 /* GarbageSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840C5DD627D51785009AF3C5 /* GarbageSettingView.swift */; };
+		8484D51227D246A500B60613 /* SettingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484D51127D246A500B60613 /* SettingData.swift */; };
+		8484D51A27D2F60C00B60613 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484D51927D2F60C00B60613 /* CalendarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +23,10 @@
 		281402AF27D20F2A00E1ABC4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		281402B127D20F2F00E1ABC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		281402B427D20F2F00E1ABC4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8404854D27D236CF00379369 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		840C5DD627D51785009AF3C5 /* GarbageSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarbageSettingView.swift; sourceTree = "<group>"; };
+		8484D51127D246A500B60613 /* SettingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingData.swift; sourceTree = "<group>"; };
+		8484D51927D2F60C00B60613 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +61,10 @@
 			children = (
 				281402AD27D20F2A00E1ABC4 /* gomiCalendarApp.swift */,
 				281402AF27D20F2A00E1ABC4 /* ContentView.swift */,
+				8404854D27D236CF00379369 /* SettingView.swift */,
+				840C5DD627D51785009AF3C5 /* GarbageSettingView.swift */,
+				8484D51927D2F60C00B60613 /* CalendarView.swift */,
+				8484D51127D246A500B60613 /* SettingData.swift */,
 				281402B127D20F2F00E1ABC4 /* Assets.xcassets */,
 				281402B327D20F2F00E1ABC4 /* Preview Content */,
 			);
@@ -83,6 +95,8 @@
 			dependencies = (
 			);
 			name = gomiCalendar;
+			packageProductDependencies = (
+			);
 			productName = gomiCalendar;
 			productReference = 281402AA27D20F2A00E1ABC4 /* gomiCalendar.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +125,8 @@
 				Base,
 			);
 			mainGroup = 281402A127D20F2A00E1ABC4;
+			packageReferences = (
+			);
 			productRefGroup = 281402AB27D20F2A00E1ABC4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -137,8 +153,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8484D51A27D2F60C00B60613 /* CalendarView.swift in Sources */,
+				8484D51227D246A500B60613 /* SettingData.swift in Sources */,
+				8404854E27D236CF00379369 /* SettingView.swift in Sources */,
 				281402B027D20F2A00E1ABC4 /* ContentView.swift in Sources */,
 				281402AE27D20F2A00E1ABC4 /* gomiCalendarApp.swift in Sources */,
+				840C5DD727D51785009AF3C5 /* GarbageSettingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
