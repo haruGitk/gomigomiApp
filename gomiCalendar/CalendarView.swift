@@ -95,7 +95,7 @@ struct CalendarView: View {
                                 .font(.title)
                                 .foregroundColor(Color.red)
                             HStack{
-                                if paperday != date.formatted(.dateTime.weekday())+"曜日" && burnableday != date.formatted(.dateTime.weekday())+"曜日" && plasticday != date.formatted(.dateTime.weekday())+"曜日" && unburnableday != date.formatted(.dateTime.weekday())+"曜日" && canday != date.formatted(.dateTime.weekday())+"曜日" && bottleday != date.formatted(.dateTime.weekday())+"曜日" && otherday != date.formatted(.dateTime.weekday())+"曜日"{
+                                if paperday != date.formatted(.dateTime.weekday())+"曜日" && burnableday != date.formatted(.dateTime.weekday())+"曜日" && plasticday != date.formatted(.dateTime.weekday())+"曜日" && unburnableday != date.formatted(.dateTime.weekday())+"曜日" && canday != date.formatted(.dateTime.weekday())+"曜日" && bottleday != date.formatted(.dateTime.weekday())+"曜日" && othersday != date.formatted(.dateTime.weekday())+"曜日"{
                                         Image("dayOff")
                                         .resizable()
                                         .frame(width: 90.0, height: 80.0)
@@ -153,7 +153,7 @@ struct CalendarView: View {
                             Text("\(format(day: date)+1)"+"日")
                                 .foregroundColor(Color.blue)
                             HStack{
-                                if paperday != nextWeekDay(week: date.formatted(.dateTime.weekday()))+"曜日" && burnableday != nextWeekDay(week: date.formatted(.dateTime.weekday()))+"曜日" && plasticday != nextWeekDay(week: date.formatted(.dateTime.weekday()))+"曜日" && unburnableday != nextWeekDay(week: date.formatted(.dateTime.weekday()))+"曜日" && canday != nextWeekDay(week: date.formatted(.dateTime.weekday()))+"曜日" && bottleday != nextWeekDay(week: date.formatted(.dateTime.weekday()))+"曜日" && otherday != nextWeekDay(week: date.formatted(.dateTime.weekday()))+"曜日"{
+                                if paperday != nextWeekDay(week: date.formatted(.dateTime.weekday()))+"曜日" && burnableday != nextWeekDay(week: date.formatted(.dateTime.weekday()))+"曜日" && plasticday != nextWeekDay(week: date.formatted(.dateTime.weekday()))+"曜日" && unburnableday != nextWeekDay(week: date.formatted(.dateTime.weekday()))+"曜日" && canday != nextWeekDay(week: date.formatted(.dateTime.weekday()))+"曜日" && bottleday != nextWeekDay(week: date.formatted(.dateTime.weekday()))+"曜日" && othersday != nextWeekDay(week: date.formatted(.dateTime.weekday()))+"曜日"{
                                         Image("dayOff")
                                         .resizable()
                                         .frame(width: 70.0, height: 60.0)
