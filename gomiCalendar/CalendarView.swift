@@ -38,6 +38,27 @@ struct CalendarView: View {
     var bottleday = (datasample["ビン"]?.keys.first!)!
     var otherday = (datasample["その他"]?.keys.first!)!
     var block = "1"
+    
+    func format(day:Date)->Int{
+            let dateformatter = DateFormatter()
+            dateformatter.dateFormat = "dd"
+            let strDate = dateformatter.string(from: day)
+            let numDate = Int(strDate)
+            return numDate!
+       
+    }
+    
+    func nextWeekDay(week:String)->String{
+        let weekArray = ["月", "火", "水", "木", "金", "土", "日"]
+        var index = 0
+        for i in 0..<weekArray.count {
+            if week == weekArray[i]{
+                index = i
+            }
+        }
+        return weekArray[(index+1)%7]
+    }
+    
     var body: some View {
         VStack(spacing: 20){
             VStack(spacing: 10) {
@@ -72,49 +93,111 @@ struct CalendarView: View {
                 ZStack {
                     Color(red: 0.9, green: 0.9, blue: 0.9, opacity: 0)
                          .ignoresSafeArea()
-                    HStack{
-                        if paperday == date.formatted(.dateTime.weekday())+"曜日"{
-                            Image("paper")
-                            .resizable()
-                            .frame(width: 80.0, height: 80.0)
-                            .clipShape(Circle())
+                    HStack(alignment: .bottom){
+                        Spacer()
+                        Spacer().frame(width: 10)
+                        VStack(alignment: .leading){
+                            Text(date.formatted(.dateTime.day()))
+                                .font(.title)
+                                .foregroundColor(Color.red)
+                            HStack{
+                                if paperday == date.formatted(.dateTime.weekday())+"曜日"{
+                                    Image("paper")
+                                    .resizable()
+                                    .frame(width: 80.0, height: 80.0)
+                                    .clipShape(Circle())
+                                }
+                                if burnableday == date.formatted(.dateTime.weekday())+"曜日"{
+                                    Image("burnable")
+                                    .resizable()
+                                    .frame(width: 80.0, height: 80.0)
+                                    .clipShape(Circle())
+                                }
+                                if plasticday == date.formatted(.dateTime.weekday())+"曜日"{
+                                    Image("plastic")
+                                    .resizable()
+                                    .frame(width: 80.0, height: 80.0)
+                                    .clipShape(Circle())
+                                }
+                                if unburnableday == date.formatted(.dateTime.weekday())+"曜日"{
+                                    Image("unburnable")
+                                    .resizable()
+                                    .frame(width: 80.0, height: 80.0)
+                                    .clipShape(Circle())
+                                }
+                                if canday == date.formatted(.dateTime.weekday())+"曜日"{
+                                    Image("can")
+                                    .resizable()
+                                    .frame(width: 80.0, height: 80.0)
+                                    .clipShape(Circle())
+                                }
+                                if bottleday == date.formatted(.dateTime.weekday())+"曜日"{
+                                    Image("bottle")
+                                    .resizable()
+                                    .frame(width: 80.0, height: 80.0)
+                                    .clipShape(Circle())
+                                }
+                                if otherday == date.formatted(.dateTime.weekday())+"曜日"{
+                                    Image("other")
+                                    .resizable()
+                                    .frame(width: 80.0, height: 80.0)
+                                    .clipShape(Circle())
+                                }
+                            }
                         }
-                        if burnableday == date.formatted(.dateTime.weekday())+"曜日"{
-                            Image("burnable")
-                            .resizable()
-                            .frame(width: 80.0, height: 80.0)
-                            .clipShape(Circle())
+                        Spacer().frame(width: 10)
+                        Divider()
+                        //次の日
+                        Spacer()
+                        VStack(alignment: .leading){
+                            Text("\(format(day: date)+1)"+"日")
+                                .foregroundColor(Color.blue)
+                            HStack{
+                                if paperday == nextWeekDay(week: date.formatted(.dateTime.weekday()))+"曜日"{
+                                    Image("paper")
+                                    .resizable()
+                                    .frame(width: 60.0, height: 60.0)
+                                    .clipShape(Circle())
+                                }
+                                if burnableday == nextWeekDay(week: date.formatted(.dateTime.weekday()))+"曜日"{
+                                    Image("burnable")
+                                    .resizable()
+                                    .frame(width: 60.0, height: 60.0)
+                                    .clipShape(Circle())
+                                }
+                                if plasticday == nextWeekDay(week: date.formatted(.dateTime.weekday()))+"曜日"{
+                                    Image("plastic")
+                                    .resizable()
+                                    .frame(width: 60.0, height: 60.0)
+                                    .clipShape(Circle())
+                                }
+                                if unburnableday == nextWeekDay(week: date.formatted(.dateTime.weekday()))+"曜日"{
+                                    Image("unburnable")
+                                    .resizable()
+                                    .frame(width: 60.0, height: 60.0)
+                                    .clipShape(Circle())
+                                }
+                                if canday == nextWeekDay(week: date.formatted(.dateTime.weekday()))+"曜日"{
+                                    Image("can")
+                                    .resizable()
+                                    .frame(width: 60.0, height: 60.0)
+                                    .clipShape(Circle())
+                                }
+                                if bottleday == nextWeekDay(week: date.formatted(.dateTime.weekday()))+"曜日"{
+                                    Image("bottle")
+                                    .resizable()
+                                    .frame(width: 60.0, height: 60.0)
+                                    .clipShape(Circle())
+                                }
+                                if otherday == nextWeekDay(week: date.formatted(.dateTime.weekday()))+"曜日"{
+                                    Image("other")
+                                    .resizable()
+                                    .frame(width: 60.0, height: 60.0)
+                                    .clipShape(Circle())
+                                }
+                            }
                         }
-                        if plasticday == date.formatted(.dateTime.weekday())+"曜日"{
-                            Image("plastic")
-                            .resizable()
-                            .frame(width: 80.0, height: 80.0)
-                            .clipShape(Circle())
-                        }
-                        if unburnableday == date.formatted(.dateTime.weekday())+"曜日"{
-                            Image("unburnable")
-                            .resizable()
-                            .frame(width: 80.0, height: 80.0)
-                            .clipShape(Circle())
-                        }
-                        if canday == date.formatted(.dateTime.weekday())+"曜日"{
-                            Image("can")
-                            .resizable()
-                            .frame(width: 80.0, height: 80.0)
-                            .clipShape(Circle())
-                        }
-                        if bottleday == date.formatted(.dateTime.weekday())+"曜日"{
-                            Image("bottle")
-                            .resizable()
-                            .frame(width: 80.0, height: 80.0)
-                            .clipShape(Circle())
-                        }
-                        if otherday == date.formatted(.dateTime.weekday())+"曜日"{
-                            Image("other")
-                            .resizable()
-                            .frame(width: 80.0, height: 80.0)
-                            .clipShape(Circle())
-                        }
+                        Spacer().frame(width: 10)
                     }
                 }
                 .frame(height: 100)
