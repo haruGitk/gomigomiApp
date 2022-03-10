@@ -12,13 +12,13 @@ struct GarbageSettingModalView: View {
     @EnvironmentObject private var displayState: DisplayState
     @EnvironmentObject var showingGarbageCollectionSettingModal: GarbageCollectionSettingModalState
     // pickerが辞書型の変数を受け付けなかったため、一時的に個別の変数を導入
-    @State var burnable = ""
-    @State var unburnable = ""
-    @State var plastic = ""
-    @State var bottle = ""
-    @State var can = ""
-    @State var paper = ""
-    @State var others = ""
+    @State var burnableday = ""
+    @State var unburnableday = ""
+    @State var plasticday = ""
+    @State var bottleday = ""
+    @State var canday = ""
+    @State var paperday = ""
+    @State var othersday = ""
     @State var showingModal: Bool
     var garbageTypeData = [
         GarbageTypeData(garbage: garbage.burnable, name: "可燃ゴミ"),
@@ -37,49 +37,49 @@ struct GarbageSettingModalView: View {
                         garbageType in
                         switch garbageType.garbage {
                         case garbage.burnable:
-                            Picker(selection: $burnable, label: Text("可燃ゴミ")) {
+                            Picker(selection: $burnableday, label: Text("可燃ゴミ")) {
                                 ForEach(dayData) {
                                     day in
                                     daySelectionView(day: day).tag(day.name)
                                 }
                             }
                         case garbage.unburnable:
-                            Picker(selection: $unburnable, label: Text("不燃ゴミ")) {
+                            Picker(selection: $unburnableday, label: Text("不燃ゴミ")) {
                                 ForEach(dayData) {
                                     day in
                                     daySelectionView(day: day).tag(day.name)
                                 }
                             }
                         case garbage.plastic:
-                            Picker(selection: $plastic, label: Text("プラスチック")) {
+                            Picker(selection: $plasticday, label: Text("プラスチック")) {
                                 ForEach(dayData) {
                                     day in
                                     daySelectionView(day: day).tag(day.name)
                                 }
                             }
                         case garbage.bottle:
-                            Picker(selection: $bottle, label: Text("ビン")) {
+                            Picker(selection: $bottleday, label: Text("ビン")) {
                                 ForEach(dayData) {
                                     day in
                                     daySelectionView(day: day).tag(day.name)
                                 }
                             }
                         case garbage.can:
-                            Picker(selection: $can, label: Text("カン")) {
+                            Picker(selection: $canday, label: Text("カン")) {
                                 ForEach(dayData) {
                                     day in
                                     daySelectionView(day: day).tag(day.name)
                                 }
                             }
                         case garbage.paper:
-                            Picker(selection: $paper,  label: Text("古紙")) {
+                            Picker(selection: $paperday,  label: Text("古紙")) {
                                 ForEach(dayData) {
                                     day in
                                     daySelectionView(day: day).tag(day.name)
                                 }
                             }
                         case garbage.others:
-                            Picker(selection: $others, label: Text("その他")) {
+                            Picker(selection: $othersday, label: Text("その他")) {
                                 ForEach(dayData) {
                                     day in
                                     daySelectionView(day: day).tag(day.name)
@@ -93,14 +93,15 @@ struct GarbageSettingModalView: View {
                 Button(action: {
                     // データベース受け渡し用の変数
                     let data: Dictionary<String, Dictionary<String,Int>> = [
-                        "可燃ゴミ": [burnable: 1],
-                        "不燃ゴミ": [unburnable: 1],
-                        "プラスチック": [plastic: 1],
-                        "ビン": [bottle: 1],
-                        "カン": [can: 1],
-                        "古紙": [paper: 1],
-                        "その他": [others: 1]
+                        "可燃ゴミ": [burnableday: 1],
+                        "不燃ゴミ": [unburnableday: 1],
+                        "プラスチック": [plasticday: 1],
+                        "ビン": [bottleday: 1],
+                        "カン": [canday: 1],
+                        "古紙": [paperday: 1],
+                        "その他": [othersday: 1]
                     ]
+                    print(data)
                     showingGarbageCollectionSettingModal.showingModal = false
                 }) {
                     Text("完了")

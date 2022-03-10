@@ -95,6 +95,8 @@
 			dependencies = (
 			);
 			name = gomiCalendar;
+			packageProductDependencies = (
+			);
 			productName = gomiCalendar;
 			productReference = 281402AA27D20F2A00E1ABC4 /* gomiCalendar.app */;
 			productType = "com.apple.product-type.application";
@@ -123,6 +125,8 @@
 				Base,
 			);
 			mainGroup = 281402A127D20F2A00E1ABC4;
+			packageReferences = (
+			);
 			productRefGroup = 281402AB27D20F2A00E1ABC4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
