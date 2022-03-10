@@ -12,13 +12,13 @@ struct GarbageSettingModalView: View {
     @EnvironmentObject private var displayState: DisplayState
     @EnvironmentObject var showingGarbageCollectionSettingModal: GarbageCollectionSettingModalState
     // pickerが辞書型の変数を受け付けなかったため、一時的に個別の変数を導入
-    @State var burnableday = ""
-    @State var unburnableday = ""
-    @State var plasticday = ""
-    @State var bottleday = ""
-    @State var canday = ""
-    @State var paperday = ""
-    @State var othersday = ""
+    @AppStorage("burnableDay") var burnableday: String = ""
+    @AppStorage("unburnableDay") var unburnableday: String = ""
+    @AppStorage("paperDay") var paperday: String = ""
+    @AppStorage("canDay") var canday: String = ""
+    @AppStorage("plasticDay") var plasticday: String = ""
+    @AppStorage("bottleDay") var bottleday: String = ""
+    @AppStorage("othersDay") var othersday: String = ""
     @State var showingModal: Bool
     var garbageTypeData = [
         GarbageTypeData(garbage: garbage.burnable, name: "可燃ゴミ"),
