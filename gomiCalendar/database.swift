@@ -65,39 +65,57 @@ class DataBaseClass{
         }
         print("end write_db")
     }
-
+    
     var returnValue: Int = -1
     
-    func searchDataBase(pref: String, minici: String, area: String, chome: String) -> Int{
+    func searchDataBase(pref: String, minici: String, area: String, chome: String, completion: @escaping (Int)->()){
         print("start search_db")
-        
         let db = Firestore.firestore()
         
-        
-        db.collection("base").document("\(pref)").collection("\(minici)").document("\(area)").collection("\(chome)").document("可燃ゴミ").getDocument{(snap, error) in
-            
-            let data = snap?.data()
-            
-            if (data != nil){
-                print("doc found")
-                self.returnValue = 1
-            } else {
-                print("doc not found")
-                self.returnValue = 0
+        db.collection("base").document("\(pref)").collection("\(minici)").document("\(area)").collection("\(chome)").document("可燃ゴミ").getDocument{(snapshot, error) in
+            print("after db in")
+            if let error = error{
+                print("\(error)")
+                return
             }
+            guard let data = snapshot?.data() else{
+                print("Doc does not exist")
+                self.returnValue = 0
+                return
+            }
+            
+//            if (data != nil){
+//                print("doc found")
+//                self.returnValue = 1
+//            } else {
+//                print("doc not found")
+//                self.returnValue = 0
+//            }
+            print(data)
+            self.returnValue = 1
+            
+            completion(self.returnValue)
         }
         print("end search_db")
-        print("in searchDataBase func: ", returnValue)
-        
-        return returnValue
     }
+    
+    func checkSearch(returnValue: Int)-> Int{
+        if (returnValue == 0){
+            print("returnValue is 0")
+            return 0
+        }else{
+            print("returnValue is 1")
+            return 1
+        }
+    }
+    
     func searchRepeat(pref: String, minici: String, area: String, chome: String) -> Int {
         var result: Int
         
-        while(returnValue == -1){
-           result = searchDataBase(pref: pref, minici: minici, area: area, chome: chome)
-            break
-        }
+        //        while(returnValue == -1){
+        //           result = searchDataBase(pref: pref, minici: minici, area: area, chome: chome)
+        //            break
+        //        }
         
         print("in searchRepeat func: ", returnValue)
         return returnValue

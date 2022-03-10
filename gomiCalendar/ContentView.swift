@@ -15,7 +15,7 @@ struct ContentView: View {
     var body: some View {
         Text("Hello, world!")
             .padding()
-        Button(action: {dbc1.readDataBase(pref: "東京都", minici: "千代田区", area: "西神田", chome: "３丁目", gomi_type: "可燃ゴミ")}){
+        Button(action: {dbc1.readDataBase(pref: "東京都", minici: "千代田区", area: "西神田", chome: "２丁目", gomi_type: "可燃ゴミ")}){
             Text("read db")
         }
         Button(action: {dbc1.testReadDatabase()}){
@@ -24,7 +24,10 @@ struct ContentView: View {
         Button(action: {testWriteDb()}){
             Text("test write db")
         }
-        Button(action: {check_returnValue_func()}){
+        Button(action: {
+//            check_returnValue_func()
+            dbc1.searchDataBase(pref: "神奈川県", minici: "横須賀市", area: "久里浜", chome: "３丁目", completion: {(value:Int) -> () in print(value)})
+        }){
             Text("search db")
         }
         Button(action: {testSearchDb()}){
@@ -32,11 +35,13 @@ struct ContentView: View {
         }
     }
     
-    func check_returnValue_func(){
-        let result = dbc1.searchDataBase(pref: "千葉県", minici: "横須賀市", area: "久里浜", chome: "３丁目")
-        
-        print("result: ", result)
-        print("in check func: ", dbc1.returnValue)
+    func check_returnValue_func()->Int{
+        dbc1.searchDataBase(pref: "神奈川県", minici: "横須賀市", area: "久里浜", chome: "３丁目", completion: {(value:Int) -> () in print(value)})
+            
+            let result = dbc1.returnValue
+            
+            print("result: ", result)
+        return result
     }
     
     func testWriteDb(){
@@ -64,21 +69,32 @@ struct ContentView: View {
         print("start test_search_db")
         let db = Firestore.firestore()
         
-        let pref = "山梨県"
-        let minici = "甲府市"
-        let area = "朝日"
-        let chome = "１丁目"
+        let pref = "東京都"
+        let minici = "千代田区"
+        let area = "西神田"
+        let chome = "２丁目"
         
         db.collection("base").document("\(pref)").collection("\(minici)").document("\(area)").collection("\(chome)").document("可燃ゴミ").getDocument{(snap, error) in
-            let data = snap?.data()
-            if (data != nil){
-                print("Document exist")
-                print(data)
-                
-            } else{
-                print(data)
-                print("Document does not exist")
+            
+            print("after db in")
+            if let error = error{
+                print("\(error)")
+                return
             }
+            guard let data = snap?.data()else{
+                print("Doc does not exist")
+                return
+            }
+            
+            print(data)
+            //            if (data != nil){
+            //                print("Document exist")
+            //                print(data)
+            //
+            //            } else{
+            //                print(data)
+            //                print("Document does not exist")
+            //            }
         }
         print("end test_search_db")
     }
