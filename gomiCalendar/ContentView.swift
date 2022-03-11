@@ -11,6 +11,7 @@ import Firebase
 struct ContentView: View {
     
     let dbc1 = DataBaseClass()
+    @State var value = 0
     
     var body: some View {
         Text("Hello, world!")
@@ -26,9 +27,9 @@ struct ContentView: View {
         }
         Button(action: {
 //            check_returnValue_func()
-            dbc1.searchDataBase(pref: "神奈川県", minici: "横須賀市", area: "久里浜", chome: "３丁目", completion: {(value:Int) -> () in print(value)})
+            dbc1.searchDataBase(pref: "神奈川県", minici: "横須賀市", area: "久里浜", chome: "３丁目", completion: {(value:Int) -> () in self.value = value})
         }){
-            Text("search db")
+            Text("search db \(value)")
         }
         Button(action: {testSearchDb()}){
             Text("test search db")
