@@ -15,6 +15,16 @@
 		840C5DD727D51785009AF3C5 /* GarbageSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840C5DD627D51785009AF3C5 /* GarbageSettingView.swift */; };
 		8484D51227D246A500B60613 /* SettingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484D51127D246A500B60613 /* SettingData.swift */; };
 		8484D51A27D2F60C00B60613 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484D51927D2F60C00B60613 /* CalendarView.swift */; };
+		F5877D6927D245CE008AACE6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5877D6827D245CE008AACE6 /* GoogleService-Info.plist */; };
+		F5877D7D27D25903008AACE6 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = F5877D7C27D25903008AACE6 /* FirebaseAnalytics */; };
+		F5877D8127D25903008AACE6 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F5877D8027D25903008AACE6 /* FirebaseAuth */; };
+		F5877D8327D25903008AACE6 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = F5877D8227D25903008AACE6 /* FirebaseCrashlytics */; };
+		F5877D8527D25903008AACE6 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = F5877D8427D25903008AACE6 /* FirebaseDatabase */; };
+		F5877D8727D25903008AACE6 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F5877D8627D25903008AACE6 /* FirebaseFirestore */; };
+		F5877D8927D25903008AACE6 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = F5877D8827D25903008AACE6 /* FirebaseFunctions */; };
+		F5877D8B27D25903008AACE6 /* FirebaseInstallations in Frameworks */ = {isa = PBXBuildFile; productRef = F5877D8A27D25903008AACE6 /* FirebaseInstallations */; };
+		F5877D8D27D25903008AACE6 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = F5877D8C27D25903008AACE6 /* FirebaseStorage */; };
+		F5877D9127D4E4FD008AACE6 /* database.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5877D8E27D354CC008AACE6 /* database.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +37,9 @@
 		840C5DD627D51785009AF3C5 /* GarbageSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarbageSettingView.swift; sourceTree = "<group>"; };
 		8484D51127D246A500B60613 /* SettingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingData.swift; sourceTree = "<group>"; };
 		8484D51927D2F60C00B60613 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		F5877D6827D245CE008AACE6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F5877D7927D24F1D008AACE6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F5877D8E27D354CC008AACE6 /* database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = database.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +47,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5877D8527D25903008AACE6 /* FirebaseDatabase in Frameworks */,
+				F5877D8927D25903008AACE6 /* FirebaseFunctions in Frameworks */,
+				F5877D8D27D25903008AACE6 /* FirebaseStorage in Frameworks */,
+				F5877D8B27D25903008AACE6 /* FirebaseInstallations in Frameworks */,
+				F5877D8327D25903008AACE6 /* FirebaseCrashlytics in Frameworks */,
+				F5877D8127D25903008AACE6 /* FirebaseAuth in Frameworks */,
+				F5877D7D27D25903008AACE6 /* FirebaseAnalytics in Frameworks */,
+				F5877D8727D25903008AACE6 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,12 +81,15 @@
 			isa = PBXGroup;
 			children = (
 				281402AD27D20F2A00E1ABC4 /* gomiCalendarApp.swift */,
+				F5877D8E27D354CC008AACE6 /* database.swift */,
+				F5877D7927D24F1D008AACE6 /* AppDelegate.swift */,
 				281402AF27D20F2A00E1ABC4 /* ContentView.swift */,
 				8404854D27D236CF00379369 /* SettingView.swift */,
 				840C5DD627D51785009AF3C5 /* GarbageSettingView.swift */,
 				8484D51927D2F60C00B60613 /* CalendarView.swift */,
 				8484D51127D246A500B60613 /* SettingData.swift */,
 				281402B127D20F2F00E1ABC4 /* Assets.xcassets */,
+				F5877D6827D245CE008AACE6 /* GoogleService-Info.plist */,
 				281402B327D20F2F00E1ABC4 /* Preview Content */,
 			);
 			path = gomiCalendar;
@@ -96,6 +120,14 @@
 			);
 			name = gomiCalendar;
 			packageProductDependencies = (
+				F5877D7C27D25903008AACE6 /* FirebaseAnalytics */,
+				F5877D8027D25903008AACE6 /* FirebaseAuth */,
+				F5877D8227D25903008AACE6 /* FirebaseCrashlytics */,
+				F5877D8427D25903008AACE6 /* FirebaseDatabase */,
+				F5877D8627D25903008AACE6 /* FirebaseFirestore */,
+				F5877D8827D25903008AACE6 /* FirebaseFunctions */,
+				F5877D8A27D25903008AACE6 /* FirebaseInstallations */,
+				F5877D8C27D25903008AACE6 /* FirebaseStorage */,
 			);
 			productName = gomiCalendar;
 			productReference = 281402AA27D20F2A00E1ABC4 /* gomiCalendar.app */;
@@ -126,6 +158,7 @@
 			);
 			mainGroup = 281402A127D20F2A00E1ABC4;
 			packageReferences = (
+				F5877D7B27D25903008AACE6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 281402AB27D20F2A00E1ABC4 /* Products */;
 			projectDirPath = "";
@@ -143,6 +176,7 @@
 			files = (
 				281402B527D20F2F00E1ABC4 /* Preview Assets.xcassets in Resources */,
 				281402B227D20F2F00E1ABC4 /* Assets.xcassets in Resources */,
+				F5877D6927D245CE008AACE6 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,6 +190,7 @@
 				8484D51A27D2F60C00B60613 /* CalendarView.swift in Sources */,
 				8484D51227D246A500B60613 /* SettingData.swift in Sources */,
 				8404854E27D236CF00379369 /* SettingView.swift in Sources */,
+				F5877D9127D4E4FD008AACE6 /* database.swift in Sources */,
 				281402B027D20F2A00E1ABC4 /* ContentView.swift in Sources */,
 				281402AE27D20F2A00E1ABC4 /* gomiCalendarApp.swift in Sources */,
 				840C5DD727D51785009AF3C5 /* GarbageSettingView.swift in Sources */,
@@ -289,6 +324,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"gomiCalendar/Preview Content\"";
+				DEVELOPMENT_TEAM = W6SKLRWR94;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -317,6 +353,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"gomiCalendar/Preview Content\"";
+				DEVELOPMENT_TEAM = W6SKLRWR94;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -359,6 +396,60 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F5877D7B27D25903008AACE6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F5877D7C27D25903008AACE6 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F5877D7B27D25903008AACE6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		F5877D8027D25903008AACE6 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F5877D7B27D25903008AACE6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		F5877D8227D25903008AACE6 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F5877D7B27D25903008AACE6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		F5877D8427D25903008AACE6 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F5877D7B27D25903008AACE6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		F5877D8627D25903008AACE6 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F5877D7B27D25903008AACE6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		F5877D8827D25903008AACE6 /* FirebaseFunctions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F5877D7B27D25903008AACE6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFunctions;
+		};
+		F5877D8A27D25903008AACE6 /* FirebaseInstallations */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F5877D7B27D25903008AACE6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseInstallations;
+		};
+		F5877D8C27D25903008AACE6 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F5877D7B27D25903008AACE6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 281402A227D20F2A00E1ABC4 /* Project object */;
 }
