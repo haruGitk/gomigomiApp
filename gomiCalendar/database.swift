@@ -88,20 +88,22 @@ class DataBaseClass{
                 print("document")
                 return
             }
-            if data == [] || setData {
+            if  setData {
                 print("data empty")
                 for (kind, data) in garbageCollectionData {
                     db.collection("base").document("\(pref)").collection("\(city)").document("\(area)").collection("\(block)").document("\(kind)").setData(data)
                 }
-            } else {
+            } else if data == [] {
+            }
+            else {
                 self.garbageCollectionData["hasData"] = true
                 for document in data {
                     switch document.documentID {
-                        case "可燃ごみ":
-                        print("可燃ごみ: \(document.data())")
+                        case "可燃ゴミ":
+                        print("可燃ゴミ: \(document.data())")
                         self.garbageCollectionData["burnableday"] = document.data()
-                        case "不燃ごみ":
-                        print("不燃ごみ: \(document.data())")
+                        case "不燃ゴミ":
+                        print("不燃ゴミ: \(document.data())")
                         self.garbageCollectionData["unburnableday"] = document.data()
                         case "古紙":
                         print("古紙: \(document.data())")
