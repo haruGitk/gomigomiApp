@@ -94,6 +94,7 @@ class DataBaseClass{
                     db.collection("base").document("\(pref)").collection("\(city)").document("\(area)").collection("\(block)").document("\(kind)").setData(data)
                 }
             } else if data == [] {
+                completion(self.garbageCollectionData)
             }
             else {
                 self.garbageCollectionData["hasData"] = true
