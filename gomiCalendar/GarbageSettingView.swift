@@ -11,6 +11,10 @@ struct GarbageSettingModalView: View {
     // ページ遷移用変数
     @EnvironmentObject private var displayState: DisplayState
     @EnvironmentObject var showingGarbageCollectionSettingModal: GarbageCollectionSettingModalState
+    @AppStorage("pref") var pref: String = "東京都"
+    @AppStorage("city") var city: String = ""
+    @AppStorage("area") var area: String = ""
+    @AppStorage("block") var block: String = ""
     // pickerが辞書型の変数を受け付けなかったため、一時的に個別の変数を導入
     @AppStorage("burnableDay") var burnableday: String = ""
     @AppStorage("unburnableDay") var unburnableday: String = ""
@@ -20,6 +24,7 @@ struct GarbageSettingModalView: View {
     @AppStorage("bottleDay") var bottleday: String = ""
     @AppStorage("othersDay") var othersday: String = ""
     @State var showingModal: Bool
+    var dbc1 = DataBaseClass()
     var garbageTypeData = [
         GarbageTypeData(garbage: garbage.burnable, name: "可燃ゴミ"),
         GarbageTypeData(garbage: garbage.unburnable, name: "不燃ゴミ"),
@@ -91,17 +96,18 @@ struct GarbageSettingModalView: View {
                 .frame(maxHeight: 380)
                 .clipped()
                 Button(action: {
+                    var emptyDict: Dictionary<String, Dictionary<String, String>> = [:]
                     // データベース受け渡し用の変数
-                    let data: Dictionary<String, Dictionary<String,Int>> = [
-                        "可燃ゴミ": [burnableday: 1],
-                        "不燃ゴミ": [unburnableday: 1],
-                        "プラスチック": [plasticday: 1],
-                        "ビン": [bottleday: 1],
-                        "カン": [canday: 1],
-                        "古紙": [paperday: 1],
-                        "その他": [othersday: 1]
+                    let data: Dictionary<String, Dictionary<String,String>> = [
+                        "可燃ゴミ": [burnableday: "1"],
+                        "不燃ゴミ": [unburnableday: "1"],
+                        "プラスチック": [plasticday: "1"],
+                        "ビン": [bottleday: "1"],
+                        "カン": [canday: "1"],
+                        "古紙": [paperday: "1"],
+                        "その他": [othersday: "1"]
                     ]
-                    print(data)
+                    dbc1.checkData(pref: pref, city: city, area: area, block: block, setData: true, garbageCollectionData: data, completion: {(garbageCollectionData: Dictionary<String, Any>) -> () in print(garbageCollectionData)})
                     showingGarbageCollectionSettingModal.showingModal = false
                 }) {
                     Text("完了")

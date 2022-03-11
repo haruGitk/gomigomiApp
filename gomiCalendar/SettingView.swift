@@ -42,8 +42,16 @@ struct ModalView: View {
     @AppStorage("city") var city: String = ""
     @AppStorage("area") var area: String = ""
     @AppStorage("block") var block: String = ""
+    @AppStorage("burnableDay") var burnableday: String = ""
+    @AppStorage("unburnableDay") var unburnableday: String = ""
+    @AppStorage("paperDay") var paperday: String = ""
+    @AppStorage("canDay") var canday: String = ""
+    @AppStorage("plasticDay") var plasticday: String = ""
+    @AppStorage("bottleDay") var bottleday: String = ""
+    @AppStorage("othersDay") var othersday: String = ""
     @State var results = [Result]()
     @State var showingModal: Bool
+    let dbc1 = DataBaseClass()
     var body: some View {
         NavigationView {
             VStack {
@@ -82,20 +90,25 @@ struct ModalView: View {
                 .padding()
                 .textFieldStyle(.roundedBorder)
                 Button(action: {
-                    var data: Dictionary<String, Dictionary<String, String>> = [
-                        "region": [
-                            "pref": pref,
-                            "city": city,
-                            "area": area,
-                            "block": block
-                        ]
-                    ]
-                    if (displayState.displayMode == display.regionSetting) {
-                        displayState.displayMode = display.calendar
-                    } else {
-                        showingRegionSettingModal.showingModal = false
-                    }
-                    regionRegistered = true
+                    var emptyDict: Dictionary<String, Dictionary<String, String>> = [:]
+                    dbc1.checkData(pref: pref, city: city, area: area, block: block, setData: false, garbageCollectionData: emptyDict, completion: {(garbageCollectionData: Dictionary<String, Any>) -> () in
+                        print(garbageCollectionData["hasData"]as! Bool)
+                        if garbageCollectionData["hasData"]as! Bool {
+                            self.burnableday = ((garbageCollectionData["burnableday"]as! Dictionary<String, String>).keys.first)as! String
+                            self.unburnableday = ((garbageCollectionData["unburnableday"]as! Dictionary<String, String>).keys.first)as! String
+                            self.paperday = ((garbageCollectionData["paperday"]as! Dictionary<String, String>).keys.first)as! String
+                            self.canday = ((garbageCollectionData["canday"]as! Dictionary<String, String>).keys.first)as! String
+                            self.bottleday = ((garbageCollectionData["bottleday"]as! Dictionary<String, String>).keys.first)as! String
+                            self.plasticday = ((garbageCollectionData["plasticday"]as! Dictionary<String, String>).keys.first)as! String
+                            self.othersday = ((garbageCollectionData["othersday"]as! Dictionary<String, String>).keys.first)as! String
+                        }
+                        if (displayState.displayMode == display.regionSetting) {
+                            displayState.displayMode = display.calendar
+                        } else {
+                            showingRegionSettingModal.showingModal = false
+                        }
+                        regionRegistered = true
+                    })
                 })
                     {
                     Text("設定する")

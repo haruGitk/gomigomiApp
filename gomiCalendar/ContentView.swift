@@ -19,42 +19,35 @@ struct ContentView: View {
     @EnvironmentObject private var displayState: DisplayState
     let dbc1 = DataBaseClass()
     @State var value = 0
+    var isDbTest = false
     
     var body: some View {
-        if regionRegistered {
+        if isDbTest {
+            Text("Hello, world!")
+                .padding()
+            Button(action: {dbc1.readDataBase(pref: "東京都", city: "千代田区", area: "西神田", block: "２丁目", gomi_type: "可燃ゴミ")}){
+                Text("read db")
+            }
+            Button(action: {dbc1.testReadDatabase()}){
+                Text("test read db")
+            }
+            Button(action: {testWriteDb()}){
+                Text("test write db")
+            }
+            Button(action: {testSearchDb()}){
+                Text("test search db")
+            }
+            Button(action: {
+                var emptyDict: Dictionary<String, Dictionary<String, String>> = [:]
+                dbc1.checkData(pref: "静岡県", city: "千代田区", area: "西神田", block: "２丁目", setData: false, garbageCollectionData:emptyDict, completion: {(garbageCollectionData: Dictionary<String, Any>) -> () in print(garbageCollectionData)})
+            }){
+                Text("check db")
+            }
+        } else if regionRegistered {
             CalendarView()
         } else {
             RegionSettingView()
         }
-        Text("Hello, world!")
-            .padding()
-        Button(action: {dbc1.readDataBase(pref: "東京都", minici: "千代田区", area: "西神田", chome: "２丁目", gomi_type: "可燃ゴミ")}){
-            Text("read db")
-        }
-        Button(action: {dbc1.testReadDatabase()}){
-            Text("test read db")
-        }
-        Button(action: {testWriteDb()}){
-            Text("test write db")
-        }
-        Button(action: {
-//            check_returnValue_func()
-            dbc1.searchDataBase(pref: "神奈川県", minici: "横須賀市", area: "久里浜", chome: "３丁目", completion: {(value:Int) -> () in self.value = value})
-        }){
-            Text("search db \(value)")
-        }
-        Button(action: {testSearchDb()}){
-            Text("test search db")
-        }
-    }
-    
-    func check_returnValue_func()->Int{
-        dbc1.searchDataBase(pref: "神奈川県", minici: "横須賀市", area: "久里浜", chome: "３丁目", completion: {(value:Int) -> () in print(value)})
-            
-            let result = dbc1.returnValue
-            
-            print("result: ", result)
-        return result
     }
     
     func testWriteDb(){
@@ -62,12 +55,12 @@ struct ContentView: View {
         let db = Firestore.firestore()
         
         let pref = "神奈川県"
-        let minici = "横須賀市"
+        let city = "横須賀市"
         let area = "久里浜"
-        let chome = "３丁目"
+        let block = "３丁目"
         let arrayData = ["Tuesday": 1, "Friday": 1]
         
-        db.collection("base").document("\(pref)").collection("\(minici)").document("\(area)").collection("\(chome)").document("不燃ゴミ").setData(arrayData){
+        db.collection("base").document("\(pref)").collection("\(city)").document("\(area)").collection("\(block)").document("不燃ゴミ").setData(arrayData){
             err in
             if let err = err{
                 print("Error writing document: \(err)")
@@ -83,11 +76,11 @@ struct ContentView: View {
         let db = Firestore.firestore()
         
         let pref = "東京都"
-        let minici = "千代田区"
+        let city = "千代田区"
         let area = "西神田"
-        let chome = "２丁目"
+        let block = "２丁目"
         
-        db.collection("base").document("\(pref)").collection("\(minici)").document("\(area)").collection("\(chome)").document("可燃ゴミ").getDocument{(snap, error) in
+        db.collection("base").document("\(pref)").collection("\(city)").document("\(area)").collection("\(block)").document("可燃ゴミ").getDocument{(snap, error) in
             
             print("after db in")
             if let error = error{

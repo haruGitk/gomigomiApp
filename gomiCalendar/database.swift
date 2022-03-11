@@ -16,11 +16,11 @@ class DataBaseClass{
         let db = Firestore.firestore()
         
         let pref = "東京都"
-        let minici = "千代田区"
+        let city = "千代田区"
         let area = "西神田"
-        let chome = "２丁目"
+        let block = "２丁目"
         
-        db.collection("base").document("\(pref)").collection("\(minici)").document("\(area)").collection("\(chome)").document("可燃ゴミ").getDocument{(querysnapshot, error) in
+        db.collection("base").document("\(pref)").collection("\(city)").document("\(area)").collection("\(block)").document("可燃ゴミ").getDocument{(querysnapshot, error) in
             if let error = error {
                 print("\(error)")
                 return
@@ -31,12 +31,12 @@ class DataBaseClass{
         print("back test_read_db")
     }
     
-    func readDataBase(pref: String, minici: String, area: String, chome: String, gomi_type: String){
+    func readDataBase(pref: String, city: String, area: String, block: String, gomi_type: String){
         print("start read_db")
         
         let db = Firestore.firestore()
         
-        db.collection("base").document("\(pref)").collection("\(minici)").document("\(area)").collection("\(chome)").document("\(gomi_type)").getDocument{(snapshot, error) in
+        db.collection("base").document("\(pref)").collection("\(city)").document("\(area)").collection("\(block)").document("\(gomi_type)").getDocument{(snapshot, error) in
             if let error = error {
                 print("\(error)")
                 return
@@ -50,12 +50,12 @@ class DataBaseClass{
         print("end read_db")
     }
     
-    func writeDataBase(pref: String, minici: String, area: String, chome: String, gomi_type: String, day: String, week: Int){
+    func writeDataBase(pref: String, city: String, area: String, block: String, gomi_type: String, day: String, week: Int){
         print("start write_db")
         
         let db = Firestore.firestore()
         
-        db.collection("base").document("\(pref)").collection("\(minici)").document("\(area)").collection("\(chome)").document("\(gomi_type)").setData(["\(day)": week]){
+        db.collection("base").document("\(pref)").collection("\(city)").document("\(area)").collection("\(block)").document("\(gomi_type)").setData(["\(day)": week]){
             err in
             if let err = err{
                 print("Error writing document: \(err)")
@@ -66,58 +66,64 @@ class DataBaseClass{
         print("end write_db")
     }
     
-    var returnValue: Int = -1
+    var garbageCollectionData: Dictionary<String, Any> = [
+        "burnableday": ["":""],
+        "unburnableday": ["":""],
+        "paperday" : ["":""],
+        "canday": ["":""],
+        "plasticday": ["":""],
+        "bottleday": ["":""],
+        "othersday": ["":""],
+        "hasData": false
+    ]
     
-    func searchDataBase(pref: String, minici: String, area: String, chome: String, completion: @escaping (Int)->()){
-        print("start search_db")
+    func checkData(pref: String, city: String, area: String, block: String, setData: Bool, garbageCollectionData: Dictionary<String, Dictionary<String, String>>, completion: @escaping (Dictionary<String, Any>)->()) {
         let db = Firestore.firestore()
-        
-        db.collection("base").document("\(pref)").collection("\(minici)").document("\(area)").collection("\(chome)").document("可燃ゴミ").getDocument{(snapshot, error) in
-            print("after db in")
+        db.collection("base").document("\(pref)").collection("\(city)").document("\(area)").collection("\(block)").getDocuments{(snapshot, error) in
             if let error = error{
                 print("\(error)")
                 return
             }
-            guard let data = snapshot?.data() else{
-                print("Doc does not exist")
-                self.returnValue = 0
+            guard let data = snapshot?.documents else{
+                print("document")
                 return
             }
-            
-//            if (data != nil){
-//                print("doc found")
-//                self.returnValue = 1
-//            } else {
-//                print("doc not found")
-//                self.returnValue = 0
-//            }
-            print(data)
-            self.returnValue = 1
-            
-            completion(self.returnValue)
+            if data == [] || setData {
+                print("data empty")
+                for (kind, data) in garbageCollectionData {
+                    db.collection("base").document("\(pref)").collection("\(city)").document("\(area)").collection("\(block)").document("\(kind)").setData(data)
+                }
+            } else {
+                self.garbageCollectionData["hasData"] = true
+                for document in data {
+                    switch document.documentID {
+                        case "可燃ごみ":
+                        print("可燃ごみ: \(document.data())")
+                        self.garbageCollectionData["burnableday"] = document.data()
+                        case "不燃ごみ":
+                        print("不燃ごみ: \(document.data())")
+                        self.garbageCollectionData["unburnableday"] = document.data()
+                        case "古紙":
+                        print("古紙: \(document.data())")
+                        self.garbageCollectionData["paperday"] = document.data()
+                        case "カン":
+                        print("カン: \(document.data())")
+                        self.garbageCollectionData["canday"] = document.data()
+                        case "プラスチック":
+                        print("プラ: \(document.data())")
+                        self.garbageCollectionData["plasticday"] = document.data()
+                        case "ビン":
+                        print("ビン: \(document.data())")
+                        self.garbageCollectionData["bottleday"] = document.data()
+                        case "その他":
+                        print("その他: \(document.data())")
+                        self.garbageCollectionData["othersday"] = document.data()
+                        default:
+                        print("unexpected data type")
+                    }
+                }
+                completion(self.garbageCollectionData)
+            }
         }
-        print("end search_db")
-    }
-    
-    func checkSearch(returnValue: Int)-> Int{
-        if (returnValue == 0){
-            print("returnValue is 0")
-            return 0
-        }else{
-            print("returnValue is 1")
-            return 1
-        }
-    }
-    
-    func searchRepeat(pref: String, minici: String, area: String, chome: String) -> Int {
-        var result: Int
-        
-        //        while(returnValue == -1){
-        //           result = searchDataBase(pref: pref, minici: minici, area: area, chome: chome)
-        //            break
-        //        }
-        
-        print("in searchRepeat func: ", returnValue)
-        return returnValue
     }
 }
