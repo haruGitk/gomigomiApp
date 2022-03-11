@@ -33,6 +33,11 @@ struct RegionSettingView_Previews: PreviewProvider {
     }
 }
 
+func includeInvalidFigure (word: String) ->Bool{
+    let check = word.contains("-")
+    return check
+}
+
 struct ModalView: View {
     @AppStorage("regionRegistered") var regionRegistered = false
     @EnvironmentObject private var displayState: DisplayState
@@ -57,9 +62,14 @@ struct ModalView: View {
             VStack {
                 List {
                     HStack(spacing: 20) {
-                        TextField("郵便番号（半角）", text: $postalCode)
+                        TextField("郵便番号（半角）-なし", text: $postalCode)
                             .border(Color.gray, width: 2)
                             .cornerRadius(3.0)
+                        if includeInvalidFigure (word: postalCode){
+                            Text("- なしで入力してください")
+                                .foregroundColor(Color.red)
+                                .font(.caption)
+                        }
                         Button(action: {
                             getRegionalGarbageCollectionInformation(postalCode: postalCode)
                         }) {
