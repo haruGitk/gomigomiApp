@@ -17,17 +17,15 @@ enum display {
 struct ContentView: View {
     @AppStorage("regionRegistered") var regionRegistered = false
     @EnvironmentObject private var displayState: DisplayState
+    let dbc1 = DataBaseClass()
+    @State var value = 0
+    
     var body: some View {
         if regionRegistered {
             CalendarView()
         } else {
             RegionSettingView()
         }
-    
-    let dbc1 = DataBaseClass()
-    @State var value = 0
-    
-    var body: some View {
         Text("Hello, world!")
             .padding()
         Button(action: {dbc1.readDataBase(pref: "東京都", minici: "千代田区", area: "西神田", chome: "２丁目", gomi_type: "可燃ゴミ")}){
